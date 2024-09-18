@@ -1,0 +1,362 @@
+/* (edit style.css for your own book styles) */
+
+mac, pc {
+  display: inline;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem 0;
+  font-family: monospace;
+  font-size: 90%;
+  white-space: nowrap;
+}
+
+mac { border-color: #a3aaae; }
+pc { border-color: #46A7E2; }
+
+mac::before, pc::before {
+  margin-right: 0.25rem;
+  font-family:"bootstrap-icons";
+}
+mac::before {
+  color: #a3aaae;
+  content:"\F65B";
+}
+
+pc::before {
+  color: #46A7E2;
+  content:"\F65E";
+}
+
+.join {
+  height: 150px;
+  width: 200px;
+  float: right;
+  clear: right;
+}
+
+.join img {
+  width: 100%;
+}
+
+div.sourceCode {
+  clear: both;
+}
+
+div.sourceCode + pre:not(.sourceCode) {
+  background-color: #FBFBFB;
+  background-image: none;
+  border: 0.5px solid #BBB;
+}
+
+/* references with hanging indent */
+.csl-entry {
+  padding-left: 2em ;
+  text-indent: -2em ;
+}
+
+.package {
+  font-weight: 600;
+  background-color: transparent;
+}
+.package::before { content: "{"; }
+.package::after { content: "}"; }
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.incomplete-chapter {
+  padding: 1em;
+  background-color: #517AA8;
+  text-align: center;
+}
+
+.incomplete-chapter::before {
+  content: "This chapter is in draft form and will be revised soon.";
+}
+
+.webex-radiogroup label pre {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  text-indent: 0;
+  display: inline-block;
+  background-color: transparent;
+  background-image: none;
+}
+
+
+img { max-width: 100%; }
+
+/* fix code wrap with line numbers
+pre > code.sourceCode > span {
+  text-indent: -4em;
+  padding-left: 4em;
+}
+*/
+
+.inline-figure { border: none; }
+
+@media screen and (max-width: 767.98px) {
+  #TOC, #quarto-sidebar .sidebar-menu-container ul.mt-1 {
+    width: 49%;
+    padding:0;
+    float: left;
+    display: inline-block;
+    vertical-align: text-top;
+  }
+}
+
+.cell-output code {
+  white-space: pre-wrap;
+  border: 1px solid grey;
+  padding: 1em;
+}
+
+.terminal {
+  background-color: #88888811;
+  border: 5px solid #D6DADC;
+  padding: 0.5em 1em 0 1em;
+  margin-bottom: 0.5em;
+}
+
+if {
+  display: inline;
+  font-weight: 900;
+  font-size: 90%;
+  background-color: #00FF0011;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* web-r styling, from https://github.com/jimjam-slam/jamesgoldie-dev/blob/6b60b2e42c6e21eb1ed8ae390f108592bb48d98c/writing/your-new-r-package-webr/webr.css */
+/* web-r styling, from https://github.com/jimjam-slam/jamesgoldie-dev/blob/6b60b2e42c6e21eb1ed8ae390f108592bb48d98c/writing/your-new-r-package-webr/webr.css */
+/* run button */
+
+button.qwebr-button-run {
+  margin-bottom: 15px;
+  border-radius: 0.5rem;
+  background-color: white;
+  border-width: 1.5px;
+  text-transform: uppercase;
+  font-size: 70%;
+  font-weight: bold;
+  animation: 8s infinite alternate pulse;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0px 8px 5px -5px rgba(0, 128, 32, 0.15);
+    border-color: rgba(0, 128, 32, 0.35);
+  }
+  85% {
+    box-shadow: 0px 8px 5px -5px rgba(0, 128, 32, 0.15);
+    border-color: rgba(0, 128, 32, 0.35);
+  }
+  to {
+    box-shadow: 0px 8px 10px -5px rgba(0, 128, 32, 0.35);
+    border-color: rgba(0, 128, 32, 0.65);
+  }
+}
+
+button.qwebr-button-run i {
+  margin-inline-end: 0.2rem;
+}
+
+
+button.qwebr-button-run:disabled {
+  background-color: rgba(250, 250, 250, 0.65);
+  border-color: rgba(233, 236, 239, 0.65);
+  box-shadow: none;
+  border: 1.5px dashed rgba(233, 236, 239, 0.65);
+  color: rgb(175, 185, 195);
+  animation: none;
+}
+
+/* editor background and margins */
+
+.qwebr-editor {
+  border-radius: 0.5rem;
+  border: 1.5px solid #383c45;
+  overflow: hidden;
+  font-size: 85%;
+}
+
+.qwebr-editor .monaco-editor .line-numbers {
+  color: lightgrey;
+}
+
+.qwebr-editor .monaco-editor .line-numbers,
+.qwebr-editor .monaco-editor .view-line {
+  font-size: 85%;
+  font-family: "JetBrains Mono", Menlo, Monaco, "Courier New", monospace;
+}
+
+/* global webr status message */
+
+#qwebr-status-message-area .quarto-title-meta-heading {
+  display: none;
+}
+
+.quarto-title-meta p {
+  z-index: 100;
+}
+
+#qwebr-status-message-area {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  background-color: rgba(250, 250, 250, 0.65);
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 70%;
+  font-weight: bold;
+  z-index: 1;
+}
+
+/* webr code chunk output */
+
+.qwebr-output-code-area {
+  margin-top: 10px;
+}
+
+.qwebr-output-code-area pre div {
+  transform: scale(0.99);
+}
+
+/* loading cells */
+
+.qwebr-non-interactive-loading-container.qwebr-cell-needs-evaluation,
+.qwebr-non-interactive-loading-container.qwebr-cell-evaluated {
+  border: 1.5px dashed rgba(233, 236, 239, 0.65);
+}
+
+.qwebr-r-project-logo {
+  display: none;
+}
+
+.qwebr-non-interactive-loading-container div {
+  display: flex;
+  flex-flow: row;
+  align-items: baseline;
+  padding: 10px;
+  gap: 10px;
+  text-transform: uppercase;
+  font-size: 70%;
+  font-weight: bold;
+}
+
+.qwebr-non-interactive-loading-container div i.qwebr-icon-status-spinner,
+.qwebr-non-interactive-loading-container div p.qwebr-status-text {
+  color: rgb(175, 185, 195);
+  margin-bottom: 0;
+}
+
+/* syntax highlighting (dark theme) */
+
+.qwebr-editor .monaco-editor .margin,
+.qwebr-editor .monaco-editor .monaco-editor-background {
+  /* background-color: rgba(250, 250, 250, 0.65); */
+  background-color: #f3f5f5;
+}
+
+/* plain text */
+.monaco-editor .mtk1 {
+  color: #555555;
+}
+
+/* base functions */
+.monaco-editor .mtk6 {
+  color: #0c2e81;
+}
+
+/* numbers */
+.monaco-editor .mtk7 {
+  color: #8a46ac;
+}
+
+/* comments */
+.monaco-editor .mtk8 {
+  color: #6e6f6f;
+}
+
+/* strings */
+.monaco-editor .mtk20 {
+  /* color: #9ecbff; */
+  color: #29932a;
+}
+
+/* brackets */
+.monaco-editor .mtk1.bracket-highlighting-0 {
+  color: rgb(163, 131, 224);
+}
+
+.monaco-editor .mtk1.bracket-highlighting-1 {
+  color: rgb(139, 214, 126);
+}
+
+.monaco-editor .mtk1.bracket-highlighting-2 {
+  color: rgb(183, 107, 172);
+}
+
+.monaco-editor .mtk1.bracket-highlighting-3 {
+  
+  color: rgb(195, 122, 69);
+}
+
+.monaco-editor .mtk1.bracket-highlighting-4 {
+  color: rgb(69, 195, 128);
+}
+
+.monaco-editor .mtk1.bracket-highlighting-5 {
+  color: gold;
+}
+
+/* indent guides */
+.monaco-editor .core-guide.core-guide-indent.lvl-0.vertical,
+.monaco-editor .core-guide.core-guide-indent.lvl-1.vertical,
+.monaco-editor .core-guide.core-guide-indent.lvl-2.vertical,
+.monaco-editor .core-guide.core-guide-indent.lvl-3.vertical,
+.monaco-editor .core-guide.core-guide-indent.lvl-4.vertical,
+.monaco-editor .core-guide.core-guide-indent.lvl-5.vertical,
+.monaco-editor .core-guide.core-guide-indent.lvl-6.vertical {
+  --indent-color: #555577;
+  --indent-color-active: orange;
+}
+
+/* margin line numbers */
+.qwebr-editor .monaco-editor .line-numbers {
+  color: #6c727c;
+  font-style: italic;
+}
+
+/* folding indicators */
+.monaco-editor .margin .cldr.codicon.codicon-folding-expanded,
+.monaco-editor .margin .cldr.codicon.codicon-folding-collapsed {
+  color: #6c727c !important;
+}
+
+
+
+
+

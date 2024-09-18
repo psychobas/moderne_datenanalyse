@@ -1,0 +1,95 @@
+lang: en
+project:
+  type: book
+  output-dir: docs
+  resources: resources
+
+execute:
+  freeze: auto
+
+book:
+  title: 'Applied Data Skills'
+  subtitle: "Einführung in die Datenanalyse mit R"
+  author: "Dominik Meier"
+  #cover-image: images/logos/logo.png
+  #image: images/logos/logo.png
+  favicon: images/logos/favicon.ico
+  # cookie-consent: true
+  google-analytics: ""
+  page-navigation: true
+  search: true
+  # comments:
+  #   hypothesis:
+  #     theme: clean
+  #     openSidebar: false
+  repo-url: https://github.com/psyteachr/ads-v3/
+  repo-branch: master
+  repo-actions: [edit, issue, source]
+  # downloads: [pdf, epub]
+  sharing:
+  - twitter
+  - facebook
+  - linkedin
+  # sidebar:
+  #   style: docked
+  #   background: light
+  #margin-header: "<a href='https://doi.org/10.5281/zenodo.6365077'><img src='https://zenodo.org/badge/DOI/10.5281/zenodo.6365077.svg' alt='DOI'></a>"
+  page-footer:
+    left: "This is a translation/adaptation of the book [Applied Data Skills](https://psyteachr.github.io/ads-v3/) by Emily Nordmann and Lisa DeBruine"
+    right:
+    - icon: github
+      href: https://github.com/psyteachr/ads-v3
+    - icon: twitter
+      href: https://twitter.com/psyteachr
+    - icon: https://zenodo.org/badge/DOI/10.5281/zenodo.6365077.svg
+      href: https://doi.org/10.5281/zenodo.6365077
+  chapters:
+  - index.qmd
+  - 02-test.qmd
+  - 02.1-markdown.qmd
+  - 03-coding-basics.qmd
+  - 04-import-export.qmd
+  - 05-tibbles.qmd
+  - 06-wrangling.qmd
+  - 07-joins.qmd
+  - 08-data-viz.qmd
+
+
+bibliography:
+  - include/book.bib
+  - include/packages.bib
+csl: include/apa.csl
+
+format:
+  html:
+    theme:
+      light:
+      - flatly
+      - include/light.scss
+      dark:
+      - darkly
+      - include/dark.scss
+    css:
+    - include/psyteachr.css
+    - include/webex.css
+    - include/style.css
+    df-print: kable
+    html-table-processing: none
+    code-link: true
+    code-fold: false
+    code-line-numbers: true
+    code-overflow: wrap
+    code-copy: hover
+    highlight-style: a11y
+    # mainfont: ''
+    # monofont: ''
+    include-after-body:
+    - include/webex.js
+    - include/script.js
+filters:
+  - panelize
+  - webr
+  
+webr:
+  packages:
+  - "tidyverse"

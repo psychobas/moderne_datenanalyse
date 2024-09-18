@@ -1,0 +1,32 @@
+{
+    "id": "7636F6F2",
+    "path": "~/Dropbox/Uni/Psychologie/PhD/Teaching/Data Analysis Introduction/data_analysis_quarto/08-data-viz.qmd",
+    "project_path": "08-data-viz.qmd",
+    "type": "quarto_markdown",
+    "hash": "632404300",
+    "contents": "",
+    "dirty": false,
+    "created": 1723281996971.0,
+    "source_on_save": false,
+    "relative_order": 15,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "13,23",
+        "scrollLine": "0",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "2:0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1723447371,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1723447371850,
+    "read_only": false,
+    "read_only_alternatives": []
+}
