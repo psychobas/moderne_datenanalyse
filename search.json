@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Applied Data Skills",
+    "title": "Einführung in die Datenanalyse mit R",
     "section": "",
     "text": "Übersicht\nBei diesem Buch handelt es sich um eine Übersetzung/Adaption des Buches Applied Data Skills von Emily Nordmann and Lisa DeBruine. Das Buch bildet die Grundlate für die Veranstaltung “Einführung in die moderne Datenanalyse mit R und künstlicher Intelligenz”.\nDieses Buch bietet einen Überblick über die grundlegenden Fähigkeiten, die benötigt werden, um Daten zu Analyiseren und Visualisieren und diese Analysen in professionellen Berichten und Präsentationen darzustellen.\nNach Bearbeitung des in diesem Buch dargestellten Material sollten Sie in der Lage sein,",
     "crumbs": [
@@ -12,7 +12,7 @@
   {
     "objectID": "index.html#der-weg-zum-erfolg-im-umgang-mit-daten",
     "href": "index.html#der-weg-zum-erfolg-im-umgang-mit-daten",
-    "title": "Applied Data Skills",
+    "title": "Einführung in die Datenanalyse mit R",
     "section": "Der Weg zum Erfolg im Umgang mit Daten",
     "text": "Der Weg zum Erfolg im Umgang mit Daten\n\n\n\nDas Erlernen von Datenanalyse Fähigkeiten ist wie eine Fitnessstudio-Mitgliedschaft - Sie erhalten modernste Ausrüstung und Anweisungen zur Benutzung, aber Ihre Datenanalysefähigkeiten werden nicht stärker, es sei denn, Sie üben.\n\n\n\nBeim Erwerben von Datenanalysefähigkeiten geht es nicht darum, viel Code auswendig zu lernen, obwohl Sie Verlaufe des Semseters viele verschiedene Funktionen/Code kennenlernen werden. Viel wichtiger ist es beim Erlernen von Programmieren (mit R), dass man effizient benötigte Informationen finden kann. Dies erfordert die Gewöhnung an die Struktur von Hilfedateien und Spickzettel, das Erlernen, wie Sie Ihr Problem googeln und eine hilfreiche Lösung auswählen, sowie das Lesen von Fehlermeldungen.\n   \n\n\n\nDenn das Erlernen des Programmierens beinhaltet viele Fehler. Diese Fehler sind absolut wesentlich für den Prozess, also seien Sie nicht frustriert, wenn Sie häufig Fehler machen. Viele der Kapitelübungen werden Ihnen fehlerhaften Code geben, den Sie korrigieren sollen, damit Sie Erfahrung damit sammeln, wie häufige Fehler aussehen. Wenn Sie ein erfahrenerer werden, machen Sie vielleicht nicht weniger Fehler, aber Sie werden sie viel schneller beheben können.",
     "crumbs": [
