@@ -1,0 +1,2818 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Applied Data Skills - 6&nbsp; Datenbereinigung</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-joins.html" rel="next">
+<link href="./05-tibbles.html" rel="prev">
+<link href="./images/logos/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-wrangling.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datenbereinigung</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Data Skills</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/psyteachr/ads-v3/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übersicht</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einführung in R und RStudio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02.1-markdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Berichte mit R Markdown erstellen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-coding-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Coding basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-import-export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Daten Import und Export in R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-tibbles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Einführung in Tibbles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datenbereinigung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-joins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Datenbeziehungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Datenvisualisierung</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#sec-ilo-wrangle" id="toc-sec-ilo-wrangle" class="nav-link active" data-scroll-target="#sec-ilo-wrangle">Beabsichtigte Lernergebnisse</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning"><span class="header-section-number">6.1</span> Data Cleaning</a></li>
+  <li>
+<a href="#der-pipe-operator" id="toc-der-pipe-operator" class="nav-link" data-scroll-target="#der-pipe-operator"><span class="header-section-number">6.2</span> Der <code>Pipe</code> Operator</a>
+  <ul class="collapse">
+<li><a href="#spalten-ausw%C3%A4hlen-mit-select" id="toc-spalten-auswählen-mit-select" class="nav-link" data-scroll-target="#spalten-ausw%C3%A4hlen-mit-select"><span class="header-section-number">6.2.1</span> Spalten auswählen mit <code>select</code></a></li>
+  <li><a href="#todo" id="toc-todo" class="nav-link" data-scroll-target="#todo"><span class="header-section-number">6.2.2</span> Todo</a></li>
+  <li><a href="#filtern" id="toc-filtern" class="nav-link" data-scroll-target="#filtern"><span class="header-section-number">6.2.3</span> Filtern</a></li>
+  <li><a href="#sec-arrange" id="toc-sec-arrange" class="nav-link" data-scroll-target="#sec-arrange"><span class="header-section-number">6.2.4</span> Anordnen</a></li>
+  <li><a href="#mutieren" id="toc-mutieren" class="nav-link" data-scroll-target="#mutieren"><span class="header-section-number">6.2.5</span> Mutieren</a></li>
+  <li><a href="#sec-dplyr-summarise" id="toc-sec-dplyr-summarise" class="nav-link" data-scroll-target="#sec-dplyr-summarise"><span class="header-section-number">6.2.6</span> Zusammenfassen</a></li>
+  <li><a href="#sec-dplyr-groupby" id="toc-sec-dplyr-groupby" class="nav-link" data-scroll-target="#sec-dplyr-groupby"><span class="header-section-number">6.2.7</span> Gruppieren</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/psyteachr/ads-v3/edit/master/06-wrangling.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/ads-v3/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/ads-v3/blob/master/06-wrangling.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-wrangle" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datenbereinigung</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="sec-ilo-wrangle" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sec-ilo-wrangle">Beabsichtigte Lernergebnisse</h2>
+<ul>
+<li>Daten auswählen und filtern können, um Relevanz sicherzustellen</li>
+<li>Neue Spalten erstellen und bestehende bearbeiten können</li>
+<li>Mit fehlenden Daten umgehen können</li>
+</ul>
+<p>Laden Sie das <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Daten-Transformation Cheat Sheet</a> herunter.</p>
+</section><section id="data-cleaning" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="data-cleaning">
+<span class="header-section-number">6.1</span> Data Cleaning</h2>
+<p>Im letzten Kapitel haben wir das <code>Tidy Data</code>Konzept kennengelernt. Sind die Daten erst mal in einem <code>tidy</code> Format, gestaltet sich die Datenanalyse wesentlich einfacher. Leider kann es oft eine Weile dauern, bis man an diesem Punkt ankommt. Deshalb beschäftigen wir uns in diesem Kapitel mit der Datenbereinigung und Funktionen, die dabei hilfreich sind. Wir verwenden dabei vor allem die folgenden Funktionen aus dem <code>tidyverse</code>: <code>select</code>, <code>filter</code>, <code>arrange</code>, <code>mutate</code>, <code>summarise</code> und <code>group_by</code>.</p>
+<p>Diese Funktionen werden am häufigsten für die Datenreinigung verwendet. Das <code>dplyr</code> package aus dem <code>tidyverse</code> beinhaltet jedoch noch viel mehr Funktionen, die speziell für die Datenbereinigung äusserst nützlich sind. Das <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Daten-Transformation Cheat Sheet</a> gibt einen guten Überblick über die wichtigsten Funktionen. Am besten laden Sie dieses dirket herunter, schauen es kurz an und halten es für den Rest des Semseters zur Hand.</p>
+</section><section id="der-pipe-operator" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="der-pipe-operator">
+<span class="header-section-number">6.2</span> Der <code>Pipe</code> Operator</h2>
+<p>Bevor wir beginnen, schauen wir uns den <code>Pipe</code> Operator an: <code>%&gt;%</code>. Wie in der Abbildung unten dargestellt gibt der <code>pipe</code> Operator den Output einer Funktion an die nächste Funktion weiter, die diesen Output als ersten Input verwendet.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="_book/_main_files/figure-html/dplyr_pipe.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Dies ermöglich es, Funktionen auf einfache und leserliche Weise zu verknüpfen:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">select</span>(mpg, cyl, wt) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">filter</span>(wt <span class="sc">&lt;</span> <span class="fl">1.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">mpg</th>
+<th style="text-align: right;">cyl</th>
+<th style="text-align: right;">wt</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Honda Civic</td>
+<td style="text-align: right;">30.4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.615</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lotus Europa</td>
+<td style="text-align: right;">30.4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.513</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Somit können wir verschachtelte Funktionen vermeiden:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">filter</span>(<span class="fu">select</span>(mtcars, mpg, cyl, wt), wt <span class="sc">&lt;</span> <span class="fl">1.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">mpg</th>
+<th style="text-align: right;">cyl</th>
+<th style="text-align: right;">wt</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Honda Civic</td>
+<td style="text-align: right;">30.4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.615</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lotus Europa</td>
+<td style="text-align: right;">30.4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.513</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Die erste Schreibweise ist deutlich einfacher zu lesen, oder? Wie im Beispiel unten zu sehen, kommt man dadurch relativ einfach und leserlich von den Rohdaten über Datentransformationen bis hin zur Datenvisualisierung, alles in einer <code>pipe</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Umfangreiche Pipe-Operation mit mtcars-Daten, die in einem ggplot endet</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">rownames_to_column</span>(<span class="st">"car_name"</span>) <span class="sc">%&gt;%</span>   <span class="co"># Konvertiere Zeilennamen in eine Spalte</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">mutate</span>(<span class="at">mpg_level =</span> <span class="fu">cut</span>(mpg, <span class="at">breaks =</span> <span class="fu">quantile</span>(mpg, <span class="at">probs =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span><span class="sc">/</span><span class="dv">4</span>), <span class="at">include.lowest =</span> <span class="cn">TRUE</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Niedrig"</span>, <span class="st">"Mittel"</span>, <span class="st">"Hoch"</span>, <span class="st">"Sehr Hoch"</span>))) <span class="sc">%&gt;%</span>  <span class="co"># Erstelle MPG-Niveaus</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">group_by</span>(mpg_level) <span class="sc">%&gt;%</span>  <span class="co"># Gruppiere nach dem neu erstellten MPG-Niveau</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="at">avg_hp =</span> <span class="fu">mean</span>(hp),  <span class="co"># Berechne die durchschnittliche Pferdestärke für jedes Niveau</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="at">avg_wt =</span> <span class="fu">mean</span>(wt)   <span class="co"># Berechne das durchschnittliche Gewicht für jedes Niveau</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span>  <span class="co"># Entferne die Gruppierung</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(mpg_level, avg_hp), <span class="at">y =</span> avg_hp, <span class="at">fill =</span> mpg_level)) <span class="sc">+</span>  <span class="co"># Erstelle ein Balkendiagramm</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span>  <span class="co"># Verwende Balken zur Darstellung der Daten</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(avg_hp, <span class="dv">1</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span>  <span class="co"># Füge Textbeschriftungen über den Balken hinzu</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="fu">labs</span>(</span>
+<span id="cb3-15"><a href="#cb3-15"></a>      <span class="at">title =</span> <span class="st">"Durchschnittliche Pferdestärke nach MPG-Niveaus"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16"></a>      <span class="at">x =</span> <span class="st">"MPG-Niveau"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17"></a>      <span class="at">y =</span> <span class="st">"Durchschnittliche Pferdestärke"</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>    ) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span>  <span class="co"># Verwende ein minimales Thema</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Pastel1"</span>)  <span class="co"># Färbe die Balken mit einer Pastellpalette</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="06-wrangling_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Für dieses Kapitel verwenden wir einen selbst generierten Datensatz bestehend aus den Verkäufen, Ausgaben und der Zufriedenheit für zwei Jahre aus vier Regionen und zwei Produkten. Der Code der die Daten generiert stammt aus [diese] (https://psyteachr.github.io/ads-v3/04-summary.html#sec-pipes-first) Buchkapitel. Der für die Datengenerierung verwendete Code ist für sie nicht relevant.</p>
+<p>Wie bereits besprochen lohnt es sich immer, die Daten als erstes kurz anzuschauen:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>budget</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: right;">expenses_2019</th>
+<th style="text-align: right;">expenses_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">822</td>
+<td style="text-align: right;">-897</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1037</td>
+<td style="text-align: right;">1115</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: right;">1004</td>
+<td style="text-align: right;">672</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: right;">-610</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-51</td>
+<td style="text-align: right;">-801</td>
+<td style="text-align: right;">-342</td>
+<td style="text-align: left;">very low</td>
+<td style="text-align: left;">very low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">-354</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">2036</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">783</td>
+<td style="text-align: right;">-315</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">-136</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Nun können wir mit dem Data Cleaning beginnen. Oft müssen wir zuerst den Datensatz einschränken, das heisst wir beschränken uns auf bestimmte Varialben (Spalten) und Beobachtungen (Zeilen). Dafür verwenden wir die Funktionen <code>select</code> und <code>filter</code>.</p>
+<section id="spalten-auswählen-mit-select" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="spalten-auswählen-mit-select">
+<span class="header-section-number">6.2.1</span> Spalten auswählen mit <code>select</code>
+</h3>
+<p>Mit <code>select</code> kann man Variablen auswählen. Dies ist nützlich, wenn wir nur einen Teil der Variablen für unsere Auswertung brauchen, was häufig der Fall ist. Es gibt verschiedene Arten, wie man das mit der <code>select</code> Funktion tun kann:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#Spalte nach Name auswählen</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>budget <span class="sc">%&gt;%</span> <span class="fu">select</span>(product) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">product</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#Spalte nach Index auswählen (2. Spalte)</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>budget <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">product</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Natürlich wollen wir oft mehr als nur eine Spalte auswählen:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>budget <span class="sc">%&gt;%</span> <span class="fu">select</span>(product, sales_2019, expenses_2019) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">expenses_2019</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">822</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">1037</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">1004</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-610</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-801</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">783</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">433</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Um viele Spalten auf einmal auszuwählen, ist die Doppelpunktnotation hilfreich. Dadurch werden alle Variablen die sich zwischen den beiden spezifizierten Variablen befinden ausgewählt:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>budget <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">select</span>(region<span class="sc">:</span>expenses_2020)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: right;">expenses_2019</th>
+<th style="text-align: right;">expenses_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">822</td>
+<td style="text-align: right;">-897</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1037</td>
+<td style="text-align: right;">1115</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: right;">1004</td>
+<td style="text-align: right;">672</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: right;">-610</td>
+<td style="text-align: right;">200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-51</td>
+<td style="text-align: right;">-801</td>
+<td style="text-align: right;">-342</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">-354</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">2036</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">783</td>
+<td style="text-align: right;">-315</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">-136</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="spalten-abwählen" class="level4" data-number="6.2.1.1"><h4 data-number="6.2.1.1" class="anchored" data-anchor-id="spalten-abwählen">
+<span class="header-section-number">6.2.1.1</span> Spalten abwählen</h4>
+<p>Wenn man nur einige Spalten ausschliessen möchte kann es einfacher sein, diese abzuwählen als alle andere auszuwählen. Dies können wir tun, indem wir ein <code>-</code> vor die abzuwählende Variable setzen.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># einzelne Spalten abwählen</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>budget <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>expenses_2019, <span class="sc">-</span>expenses_2020)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># einen Bereich von Spalten abwählen</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>budget <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>(expenses_2019<span class="sc">:</span>expenses_2020))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 24%">
+<col style="width: 24%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-51</td>
+<td style="text-align: left;">very low</td>
+<td style="text-align: left;">very low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">-354</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 24%">
+<col style="width: 24%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-51</td>
+<td style="text-align: left;">very low</td>
+<td style="text-align: left;">very low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">-354</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="hilfsfunktionen-zum-auswählen" class="level4" data-number="6.2.1.2"><h4 data-number="6.2.1.2" class="anchored" data-anchor-id="hilfsfunktionen-zum-auswählen">
+<span class="header-section-number">6.2.1.2</span> Hilfsfunktionen zum Auswählen</h4>
+<p>Schließlich können Sie Spalten basierend auf Kriterien über die Spaltennamen auswählen.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead><tr class="header">
+<th>Funktion</th>
+<th>Definition</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>starts_with()</code></td>
+<td>wähle Spalten, die mit einer Zeichenkette beginnen</td>
+</tr>
+<tr class="even">
+<td><code>ends_with()</code></td>
+<td>wähle Spalten, die mit einer Zeichenkette enden</td>
+</tr>
+<tr class="odd">
+<td><code>contains()</code></td>
+<td>wähle Spalten, die eine Zeichenkette enthalten</td>
+</tr>
+<tr class="even">
+<td><code>num_range()</code></td>
+<td>wähle Spalten, deren Name dem Muster <code>prefix</code> entspricht</td>
+</tr>
+</tbody>
+</table></section></section><section id="todo" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="todo">
+<span class="header-section-number">6.2.2</span> Todo</h3>
+</section><section id="filtern" class="level3" data-number="6.2.3"><h3 data-number="6.2.3" class="anchored" data-anchor-id="filtern">
+<span class="header-section-number">6.2.3</span> Filtern</h3>
+<p>Oft ist man auch nur an bestimmten Beobachtungen (Zeilen) interessiert. Diese können wir mit der <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> Funktion auswählen. Man kann dabei nach einem oder mehreren Kriterien filtern. Dabei kommen logische Operatoren, wie wir sie bereits besprochen haben, zum Einsatz. Zum Beispiel können wir nur die Beobachtungen auswählen, die aus der Region “North” kommen:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># wähle alle Zeilen aus, bei denen die Region Nord entspricht</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>budget <span class="sc">%&gt;%</span> <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"North"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: right;">expenses_2019</th>
+<th style="text-align: right;">expenses_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">822</td>
+<td style="text-align: right;">-897</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1037</td>
+<td style="text-align: right;">1115</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Die Auswahl passiert hierbei über die logische Operation <code>region == "North"</code>. Dieses Statement generiert einen Vektor aus <code>TRUE</code> und <code>FALSE</code> Werten, über die die Auswahl der Zeilen stattfindet:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>budget<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"North"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<p>Mann kann dabei verschiedene logische Operatoren verwenden:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># wähle alle Zeilen aus, bei denen die Region Nord entspricht</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>budget <span class="sc">%&gt;%</span> <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"North"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co"># wähle alle Zeilen aus, bei denen die Ausgaben 2020 genau 200 betrugen</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>budget <span class="sc">%&gt;%</span> <span class="fu">filter</span>(expenses_2020 <span class="sc">==</span> <span class="dv">200</span>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co"># wähle alle Zeilen aus, bei denen der Verkauf 2019 mehr als 100 betrug</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>budget <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sales_2019 <span class="sc">&gt;</span> <span class="dv">100</span>)</span>
+<span id="cb13-9"><a href="#cb13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co"># alles außer dem Norden</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>budget <span class="sc">%&gt;%</span> <span class="fu">filter</span>(region <span class="sc">!=</span> <span class="st">"North"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Denken Sie daran, <code>==</code> und nicht <code>=</code> zu verwenden, um zu überprüfen, ob zwei Dinge gleichwertig sind. Ein einzelnes <code>=</code> weist den Wert rechts der Variablen links zu (ähnlich wie der Operator <code>&lt;-</code>).</p>
+</div>
+</div>
+<p>Man kann auch mehrere Kriterien auf einmal spezifizieren. Dies kann man auf zwei verschiedene Arten tun. Werden die Statements mit einem <code>,</code> oder <code>&amp;</code> getrennt, werden nur die Zeilen ausgewählt, die alle Bedingungen erfüllen. So können wir zum Beispiel Zeilen auswählen, die im Jahr 2019 und 2020 ausgaben über 100 hatten:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>budget <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">filter</span>(</span>
+<span id="cb14-3"><a href="#cb14-3"></a>    sales_2019 <span class="sc">&gt;</span> <span class="dv">100</span> <span class="sc">&amp;</span> sales_2020 <span class="sc">&gt;</span> <span class="dv">100</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: right;">expenses_2019</th>
+<th style="text-align: right;">expenses_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">783</td>
+<td style="text-align: right;">-315</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">-136</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Dies ist eine sogenannte “und” Verknüpfung. Wir können auch eine “oder” Verknüpfung verwenden, dann werden alle Zeilen ausgewählt, die mindestens eine der Bedingungen erfüllen:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>budget <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">filter</span>(</span>
+<span id="cb15-3"><a href="#cb15-3"></a>    sales_2019 <span class="sc">&gt;</span> <span class="dv">100</span> <span class="sc">|</span> sales_2020 <span class="sc">&gt;</span> <span class="dv">100</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: right;">expenses_2019</th>
+<th style="text-align: right;">expenses_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">822</td>
+<td style="text-align: right;">-897</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1037</td>
+<td style="text-align: right;">1115</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: right;">1004</td>
+<td style="text-align: right;">672</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: right;">-610</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">783</td>
+<td style="text-align: right;">-315</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">-136</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Um die Auswahl zu vereinfachen, wenn man nach mehreren Kriterien filtern will, gibt es den “Übereinstimmungsoperator” (<code>%in%</code>).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># behalte alle Zeilen, bei denen die Region Nord oder Süd ist und das Produkt Widgets entspricht</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>budget <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">filter</span>(region <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"North"</span>, <span class="st">"South"</span>),</span>
+<span id="cb16-4"><a href="#cb16-4"></a>         product <span class="sc">==</span> <span class="st">"widgets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Abschliessend hier eine Übersicht mit den verschiedenen logischen Operatoren, die zum Filtern von Zeilen (Beobachtungen) verwendet werden können:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th><code>"Operator"</code></th>
+<th>Name</th>
+<th>ist WAHR, wenn und nur wenn</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>A &lt; B</code></td>
+<td>kleiner als</td>
+<td>A ist kleiner als B</td>
+</tr>
+<tr class="even">
+<td><code>A &lt;= B</code></td>
+<td>kleiner oder gleich</td>
+<td>A ist kleiner oder gleich B</td>
+</tr>
+<tr class="odd">
+<td><code>A &gt; B</code></td>
+<td>größer als</td>
+<td>A ist größer als B</td>
+</tr>
+<tr class="even">
+<td><code>A &gt;= B</code></td>
+<td>größer oder gleich</td>
+<td>A ist größer oder gleich B</td>
+</tr>
+<tr class="odd">
+<td><code>A == B</code></td>
+<td>Äquivalenz</td>
+<td>A entspricht genau B</td>
+</tr>
+<tr class="even">
+<td><code>A != B</code></td>
+<td>nicht gleich</td>
+<td>A entspricht nicht genau B</td>
+</tr>
+<tr class="odd">
+<td><code>A %in% B</code></td>
+<td>in</td>
+<td>A ist ein Element des Vektors B</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> ist unglaublich leistungsfähig und kann Ihnen ermöglichen, sehr spezifische Teilmengen von Daten auszuwählen. Aber es ist auch ziemlich gefährlich, denn wenn Sie mehrere Kriterien und Operatoren kombinieren, ist es sehr einfach, versehentlich etwas leicht anders zu spezifizieren, als Sie beabsichtigt haben. <strong>Überprüfen Sie immer Ihre Ausgabe</strong>. Wenn Sie einen kleinen Datensatz haben, können Sie ihn visuell überprüfen, um zu sehen, ob er richtig aussieht. Bei einem größeren Datensatz möchten Sie vielleicht Zusammenfassungsstatistiken berechnen oder die Anzahl der Gruppen/Beobachtungen in jeder Variablen zählen, um zu überprüfen, ob Ihr Filter korrekt ist. Es gibt kein Expertenniveau im Codieren, das das Wissen und die Überprüfung Ihrer Daten ersetzen kann.</p>
+</div>
+</div>
+</section><section id="sec-arrange" class="level3" data-number="6.2.4"><h3 data-number="6.2.4" class="anchored" data-anchor-id="sec-arrange">
+<span class="header-section-number">6.2.4</span> Anordnen</h3>
+<p>Nachdem wir die gewünschten Spalten (<code>select</code>) und Zeilen (<code>filter</code>) ausgewählt haben, wollen wir die Daten eventuell noch sortieren. Dies kann zum Beispiel bei Paneldaten sinnvoll sein. Sortieren kann auch für die Darstellung in Tabellen hilfreich sein. Wir können Daten nach den Werten in bestimmten Spalten mit <code>arrange</code> sortieren:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Anordnen der Tabelle </span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># zuerst nach Region in alphabetischer Reihenfolge</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co"># dann nach "product" in umgekehrter alphabetischer Reihenfolge (mit der Hilfsfunktion `desc`)</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>budget <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">arrange</span>(region, <span class="fu">desc</span>(product))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: right;">expenses_2019</th>
+<th style="text-align: right;">expenses_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1037</td>
+<td style="text-align: right;">1115</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">822</td>
+<td style="text-align: right;">-897</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">very high</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: right;">-610</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: right;">1004</td>
+<td style="text-align: right;">672</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">-354</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">2036</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-51</td>
+<td style="text-align: right;">-801</td>
+<td style="text-align: right;">-342</td>
+<td style="text-align: left;">very low</td>
+<td style="text-align: left;">very low</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">-136</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">783</td>
+<td style="text-align: right;">-315</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">neutral</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="mutieren" class="level3" data-number="6.2.5"><h3 data-number="6.2.5" class="anchored" data-anchor-id="mutieren">
+<span class="header-section-number">6.2.5</span> Mutieren</h3>
+<p>Die Funktion <code>mutate()</code> ermöglicht es, neue Spalten hinzuzufügen oder bestehende zu ändern. Dies geschieht mit folgender Syntax: <code>mutate(neue_Spalte = Berechnung)</code>. Es können auch mehrere neue Spalten in einem einzigen <code>mutate</code> Call generiert werden.Sobald eine neue Spalte erstellt wurde, kann diese in weiteren berechnungen innerhalb des selben <code>mutate</code> Calls verwendet werden. Zum Beispiel verwendet die Erstellung von <code>profit</code> unten die Spalte <code>expenses</code>, die darüber erstellt wird.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>budget2 <span class="ot">&lt;-</span> budget <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-3"><a href="#cb18-3"></a>    <span class="at">sales =</span> sales_2019 <span class="sc">+</span> sales_2020,</span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="at">expenses =</span> expenses_2019 <span class="sc">+</span> expenses_2020,</span>
+<span id="cb18-5"><a href="#cb18-5"></a>    <span class="at">profit =</span> sales <span class="sc">-</span> expenses,</span>
+<span id="cb18-6"><a href="#cb18-6"></a>    <span class="at">region =</span> <span class="fu">paste</span>(region, <span class="st">"Office"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7"></a>  )</span>
+<span id="cb18-8"><a href="#cb18-8"></a></span>
+<span id="cb18-9"><a href="#cb18-9"></a>budget2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 5%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">sales_2019</th>
+<th style="text-align: right;">sales_2020</th>
+<th style="text-align: right;">expenses_2019</th>
+<th style="text-align: right;">expenses_2020</th>
+<th style="text-align: left;">satisfaction_2019</th>
+<th style="text-align: left;">satisfaction_2020</th>
+<th style="text-align: right;">sales</th>
+<th style="text-align: right;">expenses</th>
+<th style="text-align: right;">profit</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North Office</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">822</td>
+<td style="text-align: right;">-897</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: right;">1612</td>
+<td style="text-align: right;">-75</td>
+<td style="text-align: right;">1687</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North Office</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1037</td>
+<td style="text-align: right;">1115</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: left;">very high</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">2152</td>
+<td style="text-align: right;">-1352</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South Office</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: right;">1004</td>
+<td style="text-align: right;">672</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: right;">-327</td>
+<td style="text-align: right;">1676</td>
+<td style="text-align: right;">-2003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South Office</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: right;">-610</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: right;">1077</td>
+<td style="text-align: right;">-410</td>
+<td style="text-align: right;">1487</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East Office</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-51</td>
+<td style="text-align: right;">-801</td>
+<td style="text-align: right;">-342</td>
+<td style="text-align: left;">very low</td>
+<td style="text-align: left;">very low</td>
+<td style="text-align: right;">-779</td>
+<td style="text-align: right;">-1143</td>
+<td style="text-align: right;">364</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East Office</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">-354</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">2036</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">high</td>
+<td style="text-align: right;">-777</td>
+<td style="text-align: right;">2130</td>
+<td style="text-align: right;">-2907</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West Office</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">783</td>
+<td style="text-align: right;">-315</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: right;">1423</td>
+<td style="text-align: right;">468</td>
+<td style="text-align: right;">955</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West Office</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">-136</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: left;">low</td>
+<td style="text-align: right;">1630</td>
+<td style="text-align: right;">297</td>
+<td style="text-align: right;">1333</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><code>mutate()</code> kann auch in Verbindung mit anderen Funktionen und Logischen Operatoren verwendet werden. Zum Beispiel können wir eine weitere Spalte zu <code>budget2</code> hinzufügen, die angibt, ob in diesem Jahr ein Gewinn erzielt wurde, oder unsere <code>product</code>-Variable als Faktor überschreiben. Genau wie bei der Verwendung von Logischen Operatoren mit <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> wird die Gleichung ausgewertet und gibt TRUE oder FALSE zurück, je nachdem, ob die Beobachtung das Kriterium erfüllt.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>budget2 <span class="ot">&lt;-</span> budget2 <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">mutate</span>(<span class="at">profit_category =</span> profit <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb19-3"><a href="#cb19-3"></a>         <span class="at">product =</span> <span class="fu">as.factor</span>(product))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ist der neue Variablenname gleich wie der alte, wird die bestehende Variable überschrieben.</p>
+<p>Im Zusammenhang mit <code>mutate</code> ist <code>case_when</code> eine sehr nützliche Funktion, um basierend auf einer Reihe von Bedingungen (logischen Statmements) eine neue Variable zu generieren. So können wir zum Beispiel den Gewinn in mehrere Kategorien einteilen:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>budget2 <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">mutate</span>(<span class="at">profit_category =</span> <span class="fu">case_when</span>(profit <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"kein Gewinn"</span>,</span>
+<span id="cb20-3"><a href="#cb20-3"></a>                                     profit <span class="sc">&gt;</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"kleiner Gewinn"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>                                     profit <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">~</span> <span class="st">"hoher Gewinn"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">select</span>(profit, profit_category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">profit</th>
+<th style="text-align: left;">profit_category</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1687</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-1352</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-2003</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1487</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">364</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-2907</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">955</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1333</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Falls für eine Beobachtung keine der Bedingungen zutrifft, generiert die Funktion den Wert <code>NA</code>. Dem müssen wir uns bewusst sein und wenn möglich Bedingugen generieren, die allen Werten einen neuen Wert zuweisen. Diese Bedingungen wären in diesem Fall sinnvoller:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>budget2 <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">mutate</span>(<span class="at">profit_category =</span> <span class="fu">case_when</span>(profit <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"kein Gewinn"</span>,</span>
+<span id="cb21-3"><a href="#cb21-3"></a>                                     profit <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"kleiner Gewinn"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>                                     profit <span class="sc">&gt;</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"mittlerer Gewinn"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5"></a>                                     profit <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">~</span> <span class="st">"hoher Gewinn"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">select</span>(profit, profit_category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">profit</th>
+<th style="text-align: left;">profit_category</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1687</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-1352</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-2003</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1487</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">364</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-2907</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">955</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1333</td>
+<td style="text-align: left;">kleiner Gewinn</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Mann kann auch einen “default” Wert spezifizieren, den die Zeilen der neuen Spalte annehmen, falls keine andere Bedingung zutrifft:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>budget2 <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">mutate</span>(<span class="at">profit_category =</span> <span class="fu">case_when</span>(profit <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"kein Gewinn"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3"></a>                                     <span class="at">.default =</span> <span class="st">"Gewinn"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">select</span>(profit, profit_category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">profit</th>
+<th style="text-align: left;">profit_category</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1687</td>
+<td style="text-align: left;">Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-1352</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-2003</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1487</td>
+<td style="text-align: left;">Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">364</td>
+<td style="text-align: left;">Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-2907</td>
+<td style="text-align: left;">kein Gewinn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">955</td>
+<td style="text-align: left;">Gewinn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1333</td>
+<td style="text-align: left;">Gewinn</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-dplyr-summarise" class="level3" data-number="6.2.6"><h3 data-number="6.2.6" class="anchored" data-anchor-id="sec-dplyr-summarise">
+<span class="header-section-number">6.2.6</span> Zusammenfassen</h3>
+<p>Die Funktion <code>mutate</code> generiert für jede bestehende Beobachtung einen neuen Wert. Oft wollen wir aber Berechnungen anstellen, die bestehende Werte zusammenfast. Dafür verwenden wir die Funktion <code>summarise</code>. Bevor wir Beispiele von <code>summarise</code> anschauen, bringen wir die Daten in ein <code>tidy</code> Format:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>budget4 <span class="ot">&lt;-</span> budget <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>satisfaction_2019, <span class="sc">-</span>satisfaction_2020) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> sales_2019<span class="sc">:</span>expenses_2020,</span>
+<span id="cb23-4"><a href="#cb23-4"></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"type"</span>, <span class="st">"year"</span>),</span>
+<span id="cb23-5"><a href="#cb23-5"></a>               <span class="at">names_sep =</span> <span class="st">"_"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6"></a>               <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> type,</span>
+<span id="cb23-8"><a href="#cb23-8"></a>              <span class="at">values_from =</span> value)</span>
+<span id="cb23-9"><a href="#cb23-9"></a></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="fu">head</span>(budget4) <span class="co"># Überprüfen Sie das Format</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: left;">year</th>
+<th style="text-align: right;">sales</th>
+<th style="text-align: right;">expenses</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">822</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">-897</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">1037</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1115</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">1004</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: right;">672</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Jetzt können wir zum Beispiel Kennzahlen wie die durchschnittlichen Verkäufe und Ausgaben, sowie das Minimum und Maximum des Gewinnes berechnen:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>budget4 <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb24-3"><a href="#cb24-3"></a>    <span class="at">mean_sales =</span> <span class="fu">mean</span>(sales),</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="at">mean_expenses =</span> <span class="fu">mean</span>(expenses),</span>
+<span id="cb24-5"><a href="#cb24-5"></a>    <span class="at">min_profit =</span> <span class="fu">min</span>(expenses <span class="sc">-</span> sales),</span>
+<span id="cb24-6"><a href="#cb24-6"></a>    <span class="at">max_profit =</span> <span class="fu">max</span>(expenses <span class="sc">-</span> sales)</span>
+<span id="cb24-7"><a href="#cb24-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">mean_sales</th>
+<th style="text-align: right;">mean_expenses</th>
+<th style="text-align: right;">min_profit</th>
+<th style="text-align: right;">max_profit</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">291.1875</td>
+<td style="text-align: right;">318.4375</td>
+<td style="text-align: right;">-2632</td>
+<td style="text-align: right;">2390</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Wir sehen, dass <code>summarise</code> wie <code>mutate</code> funktioniert, jedoch mehrere Beobachtungen zu einer neuen, aggregierten, Beobachtung zusammenfasst.</p>
+<p>Oft interessieren wir uns aber für solche Kennzahlen getrennt nach Gruppen. Zum Beispiel wäre es gut zu wissen, inwiefern sich die durchschnittlichen Verkäufe und Ausgaben nach Region unterscheiden. Dies können wir mit der <code>group_by</code> Funktion tun.</p>
+</section><section id="sec-dplyr-groupby" class="level3" data-number="6.2.7"><h3 data-number="6.2.7" class="anchored" data-anchor-id="sec-dplyr-groupby">
+<span class="header-section-number">6.2.7</span> Gruppieren</h3>
+<p>Die Funktion <code>group_by()</code> nimmt bestehende Daten und wandelt sie in eine gruppierte Tabelle um, in der alle Berechnungen, die anschließend darauf ausgeführt werden, “nach Gruppe” durchgeführt werden. Schauen wir uns als erste an was passiert, wenn wir die <code>group_by</code> Funktion anwenden:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>budget4 <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">group_by</span>(year, product)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: left;">year</th>
+<th style="text-align: right;">sales</th>
+<th style="text-align: right;">expenses</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">822</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">-517</td>
+<td style="text-align: right;">-897</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">1037</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">1115</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">1123</td>
+<td style="text-align: right;">1004</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">-1450</td>
+<td style="text-align: right;">672</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-610</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">-945</td>
+<td style="text-align: right;">200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">-728</td>
+<td style="text-align: right;">-801</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">-51</td>
+<td style="text-align: right;">-342</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">-423</td>
+<td style="text-align: right;">94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">East</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">-354</td>
+<td style="text-align: right;">2036</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">783</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">-315</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">1204</td>
+<td style="text-align: right;">433</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">-136</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Wir sehen, dass der Datensatz nun nach den Variablen <code>year</code> und <code>product</code> gruppiert ist. Zudem sehen wir, dass es vier solcher Gruppen gibt. Alle nachfolgenden Berechnungen (z.B. mit <code>summarise</code>) werden nun separat nach diesen Gruppen durchgeführt. So werden zum Beispile die Mittelwerte getrennt nach diesen vier Gruppen berechnet:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>year_prod <span class="ot">&lt;-</span> budget4 <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">group_by</span>(year, product) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-4"><a href="#cb26-4"></a>    <span class="at">mean_sales =</span> <span class="fu">mean</span>(sales</span>
+<span id="cb26-5"><a href="#cb26-5"></a></span>
+<span id="cb26-6"><a href="#cb26-6"></a>),</span>
+<span id="cb26-7"><a href="#cb26-7"></a>    <span class="at">mean_expenses =</span> <span class="fu">mean</span>(expenses),</span>
+<span id="cb26-8"><a href="#cb26-8"></a>    <span class="at">min_profit =</span> <span class="fu">min</span>(expenses <span class="sc">-</span> sales),</span>
+<span id="cb26-9"><a href="#cb26-9"></a>    <span class="at">max_profit =</span> <span class="fu">max</span>(expenses <span class="sc">-</span> sales)</span>
+<span id="cb26-10"><a href="#cb26-10"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-11"><a href="#cb26-11"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>year_prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">year</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: right;">mean_sales</th>
+<th style="text-align: right;">mean_expenses</th>
+<th style="text-align: right;">min_profit</th>
+<th style="text-align: right;">max_profit</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2019</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">789.25</td>
+<td style="text-align: right;">452.00</td>
+<td style="text-align: right;">-1307</td>
+<td style="text-align: right;">150</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">881.50</td>
+<td style="text-align: right;">238.50</td>
+<td style="text-align: right;">-2632</td>
+<td style="text-align: right;">517</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: right;">-307.00</td>
+<td style="text-align: right;">-220.50</td>
+<td style="text-align: right;">-1105</td>
+<td style="text-align: right;">2122</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: right;">-199.00</td>
+<td style="text-align: right;">803.75</td>
+<td style="text-align: right;">-562</td>
+<td style="text-align: right;">2390</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Damit die Daten nicht gruppiert bleiben, wenden wir zum Schluss noch d ie Funktion <code>ungroup</code> an die wie der Name sagt, die Gruppierung aufhebt.</p>
+<p>Wir können die <code>group_by</code> Funktion auch mit anderen Funktionen, die wir bereits kennengelernt haben, verwenden. So können wir zum Beispiel pro Gruppe die Beobachtung mit dem grössten Verkaufsvolumen herausfiltern:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>budget4 <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">group_by</span>(year, product) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">filter</span>(sales <span class="sc">==</span> <span class="fu">max</span>(sales))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">product</th>
+<th style="text-align: left;">year</th>
+<th style="text-align: right;">sales</th>
+<th style="text-align: right;">expenses</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">2129</td>
+<td style="text-align: right;">822</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">-610</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">widgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">-315</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">gadgets</td>
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">-136</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
+
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+  
+  
+  var elem = document.getElementById("tabset-1-1-tab");
+    if (elem) {
+        elem.textContent = "Code";
+    }
+    
+ var elem = document.getElementById("tabset-1-2-tab");
+    if (elem) {
+        elem.textContent = "Interaktiv";
+    }
+    
+    
+});
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./05-tibbles.html" class="pagination-link" aria-label="Einführung in Tibbles">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Einführung in Tibbles</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-joins.html" class="pagination-link" aria-label="Datenbeziehungen">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Datenbeziehungen</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This is a translation/adaptation of the book <a href="https://psyteachr.github.io/ads-v3/">Applied Data Skills</a> by Emily Nordmann and Lisa DeBruine</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/psyteachr/ads-v3/edit/master/06-wrangling.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/ads-v3/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/ads-v3/blob/master/06-wrangling.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/psyteachr/ads-v3">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/psyteachr">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://doi.org/10.5281/zenodo.6365077">
+      <i class="bi bi-https://zenodo.org/badge/DOI/10.5281/zenodo.6365077.svg" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+</div>
+  </div>
+</footer>
+
+
+</body></html>
