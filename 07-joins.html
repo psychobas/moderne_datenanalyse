@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>7&nbsp; Datenbeziehungen – Applied Data Skills</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08-data-viz.html" rel="next">
+<link href="./06-wrangling.html" rel="prev">
+<link href="./images/logos/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-joins.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Datenbeziehungen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Data Skills</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/psyteachr/ads-v3/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übersicht</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einführung in R und RStudio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02.1-markdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Berichte mit R Markdown erstellen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-coding-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Coding basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-import-export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Daten Import und Export in R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-tibbles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Einführung in Tibbles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datenbereinigung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-joins.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Datenbeziehungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Datenvisualisierung</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#sec-joins-data" id="toc-sec-joins-data" class="nav-link active" data-scroll-target="#sec-joins-data"><span class="header-section-number">7.1</span> Daten laden</a></li>
+  <li>
+<a href="#mutierende-joins-verkn%C3%BCpfungen" id="toc-mutierende-joins-verknüpfungen" class="nav-link" data-scroll-target="#mutierende-joins-verkn%C3%BCpfungen"><span class="header-section-number">7.2</span> Mutierende Joins (Verknüpfungen)</a>
+  <ul class="collapse">
+<li><a href="#sec-left_join" id="toc-sec-left_join" class="nav-link" data-scroll-target="#sec-left_join"><span class="header-section-number">7.2.1</span> left_join()</a></li>
+  <li><a href="#sec-right_join" id="toc-sec-right_join" class="nav-link" data-scroll-target="#sec-right_join"><span class="header-section-number">7.2.2</span> right_join()</a></li>
+  <li><a href="#sec-inner_join" id="toc-sec-inner_join" class="nav-link" data-scroll-target="#sec-inner_join"><span class="header-section-number">7.2.3</span> inner_join()</a></li>
+  <li><a href="#sec-full_join" id="toc-sec-full_join" class="nav-link" data-scroll-target="#sec-full_join"><span class="header-section-number">7.2.4</span> full_join()</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#filternde-joins" id="toc-filternde-joins" class="nav-link" data-scroll-target="#filternde-joins"><span class="header-section-number">7.3</span> Filternde Joins</a>
+  <ul class="collapse">
+<li><a href="#sec-semi_join" id="toc-sec-semi_join" class="nav-link" data-scroll-target="#sec-semi_join"><span class="header-section-number">7.3.1</span> semi_join()</a></li>
+  <li><a href="#sec-anti_join" id="toc-sec-anti_join" class="nav-link" data-scroll-target="#sec-anti_join"><span class="header-section-number">7.3.2</span> anti_join()</a></li>
+  </ul>
+</li>
+  <li><a href="#verkn%C3%BCpfung-von-mehr-als-zwei-tabellen" id="toc-verknüpfung-von-mehr-als-zwei-tabellen" class="nav-link" data-scroll-target="#verkn%C3%BCpfung-von-mehr-als-zwei-tabellen"><span class="header-section-number">7.4</span> Verknüpfung von mehr als zwei Tabellen</a></li>
+  <li>
+<a href="#bindende-joins" id="toc-bindende-joins" class="nav-link" data-scroll-target="#bindende-joins"><span class="header-section-number">7.5</span> Bindende Joins</a>
+  <ul class="collapse">
+<li><a href="#sec-bind_rows" id="toc-sec-bind_rows" class="nav-link" data-scroll-target="#sec-bind_rows"><span class="header-section-number">7.5.1</span> bind_rows()</a></li>
+  <li><a href="#sec-bind_cols" id="toc-sec-bind_cols" class="nav-link" data-scroll-target="#sec-bind_cols"><span class="header-section-number">7.5.2</span> bind_cols()</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#mengenoperationen" id="toc-mengenoperationen" class="nav-link" data-scroll-target="#mengenoperationen"><span class="header-section-number">7.6</span> Mengenoperationen</a>
+  <ul class="collapse">
+<li><a href="#sec-intersect" id="toc-sec-intersect" class="nav-link" data-scroll-target="#sec-intersect"><span class="header-section-number">7.6.1</span> intersect()</a></li>
+  <li><a href="#sec-union" id="toc-sec-union" class="nav-link" data-scroll-target="#sec-union"><span class="header-section-number">7.6.2</span> union()</a></li>
+  <li><a href="#sec-setdiff" id="toc-sec-setdiff" class="nav-link" data-scroll-target="#sec-setdiff"><span class="header-section-number">7.6.3</span> setdiff()</a></li>
+  </ul>
+</li>
+  <li><a href="#konflikte-bei-variablentypen" id="toc-konflikte-bei-variablentypen" class="nav-link" data-scroll-target="#konflikte-bei-variablentypen"><span class="header-section-number">7.7</span> Konflikte bei Variablentypen</a></li>
+  <li>
+<a href="#%C3%BCbungen" id="toc-übungen" class="nav-link" data-scroll-target="#%C3%BCbungen"><span class="header-section-number">7.8</span> Übungen</a>
+  <ul class="collapse">
+<li><a href="#notendaten" id="toc-notendaten" class="nav-link" data-scroll-target="#notendaten"><span class="header-section-number">7.8.1</span> Notendaten</a></li>
+  <li><a href="#%C3%BCbereinstimmung-der-variablentypen" id="toc-übereinstimmung-der-variablentypen" class="nav-link" data-scroll-target="#%C3%BCbereinstimmung-der-variablentypen"><span class="header-section-number">7.8.2</span> Übereinstimmung der Variablentypen</a></li>
+  <li><a href="#vollst%C3%A4ndige-datens%C3%A4tze" id="toc-vollständige-datensätze" class="nav-link" data-scroll-target="#vollst%C3%A4ndige-datens%C3%A4tze"><span class="header-section-number">7.8.3</span> Vollständige Datensätze</a></li>
+  <li><a href="#fehlende-daten" id="toc-fehlende-daten" class="nav-link" data-scroll-target="#fehlende-daten"><span class="header-section-number">7.8.4</span> Fehlende Daten</a></li>
+  <li><a href="#teilen-auf-teams" id="toc-teilen-auf-teams" class="nav-link" data-scroll-target="#teilen-auf-teams"><span class="header-section-number">7.8.5</span> Teilen auf Teams</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-resources-joins" id="toc-sec-resources-joins" class="nav-link" data-scroll-target="#sec-resources-joins"><span class="header-section-number">7.9</span> Weiterführende Ressourcen</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/psyteachr/ads-v3/edit/master/07-joins.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/ads-v3/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/ads-v3/blob/master/07-joins.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-joins" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Datenbeziehungen</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><ul>
+<li>eingebaut (diese können immer verwendet werden, ohne Pakete zu laden)
+<ul>
+<li>base:: <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, <code><a href="https://rdrr.io/r/base/files2.html">dir.create()</a></code>, <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>, <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code>, <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code>, <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code>
+</li>
+</ul>
+</li>
+<li>tidyverse (alle diese können mit <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> verwendet werden)
+<ul>
+<li>readr:: <code>write_csv()</code>, <code>read_csv()</code>
+</li>
+<li>dplyr:: <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, <code>full_join()</code>, <code>semi_join()</code>, <code>anti_join()</code>, <code>bind_rows()</code>, <code>bind_cols()</code>, <code><a href="https://rdrr.io/r/base/sets.html">intersect()</a></code>, <code><a href="https://rdrr.io/r/base/sets.html">union()</a></code>, <code><a href="https://rdrr.io/r/base/sets.html">setdiff()</a></code>, <code>mutate()</code>
+</li>
+<li>tibble:: <code>tibble()</code>, <code>as_tibble()</code>
+</li>
+<li>purrr:: <code>map_df()</code>
+</li>
+<li>stringr:: <code>str_replace_all()</code>
+</li>
+</ul>
+</li>
+</ul>
+<p>Bis jetzt haben wir uns jeweils nur mit einer Datenquelle beschäftigt. In der Praxis sind unsere Daten jedoch häufig auf mehrere Quellen verteilt. Erst werden wirklich spannende Datenauswertungen erst durch die Kombination mehrere Datenquellen möglich. Vielleicht interessieren wir uns dafür, wieso ein bestimmtes Produkt in gewissen geografischen Gebieten mehr Absatz findet als in anderen. Um dieser Frage nachzugehen, müssen wir Daten über die Verkaufszahlen mit Daten über die geografischen Gebiete (Anzahl EinwohnerInnen etc.) kombinieren. In diesem Kapitel lernen wir, wie man verschiedene Daten zu einem Datensatz zusammenführen kann.</p>
+<div class="cell" data-layout-align="center" data-verbatim="r setup, include=FALSE">
+<div class="verbatim">
+<pre class="sourceCode r code-with-copy"><code class="sourceCode R">```{r setup, include=FALSE}</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)     <span class="co"># beinhaltet readr &amp; tibble</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="sourceCode r code-with-copy"><code class="sourceCode R">```</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+</div>
+</div>
+<section id="sec-joins-data" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="sec-joins-data">
+<span class="header-section-number">7.1</span> Daten laden</h2>
+<p>Wieder generieren wir zu Übungszwecken einen kleinen übersichtlichen Datensatz. Dies erleichtert es die Berechnungen/Datenmanipulationen nachzuvollziehen. Die Prinzipien sind jedoch, auch für riesige Datensätze, identisch.</p>
+<p>Als erstes generieren wir den Datensatz <code>customers</code></p>
+<p>Dieser hat folgende Spalten/Variablen: id, Stadt und Postleitzahl für fünf Kunden 1-5.</p>
+<ul>
+<li>
+<code>1:5</code> wird die Variable <code>id</code> mit allen ganzen Zahlen zwischen 1 und 5 füllen.</li>
+<li>
+<code>city</code> und <code>code</code> verwenden beide die Funktion <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>, um mehrere Zeichenketten einzugeben. Beachten Sie, dass jeder Eintrag in eigenen Anführungszeichen steht, abgesehen von fehlenden Daten, die als <code>NA</code> aufgezeichnet werden.</li>
+<li>Bei der Eingabe von Daten auf diese Weise ist es wichtig, dass die Reihenfolge jeder Variable übereinstimmt. Also entspricht die Nummer 1 “Port Ellen” und “PA42 7DU”.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>customers <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="at">city =</span> <span class="fu">c</span>(<span class="st">"Port Ellen"</span>, <span class="st">"Dufftown"</span>, <span class="cn">NA</span>, <span class="st">"Aberlour"</span>, <span class="st">"Tobermory"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="at">postcode =</span> <span class="fu">c</span>(<span class="st">"PA42 7DU"</span>, <span class="st">"AB55 4DH"</span>, <span class="cn">NA</span>, <span class="st">"AB38 7RY"</span>, <span class="st">"PA75 6NR"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="caption-top table">
+<caption>Demo-Kundentabelle.</caption>
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+</tr>
+</tbody>
+</table>
+<p>Nehmen wir an, dass wir neben der Datenbank der Kunden auch eine Datenbank der Bestellungen haben, die diese Kunden getätigt haben. Solche Daten werden in der Praxis tatsächlich so (also getrennt) in Datenbanken gespeichert. Wir generieren also einen zweiten Datensatz den wir <code>orders</code> nennen. Dieser Datensatz enthält eine Spalte mit den Kunden-IDs und eine Spalte mit der Anzahl der bestellten Artikel. Einige Kunden aus der vorherigen Tabelle haben keine Bestellungen, manche haben mehr als eine Bestellung und manche sind nicht in der Kundentabelle.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>),</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="at">items =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">3</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="caption-top table">
+<caption>Demo-Bestelltabelle.</caption>
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">items</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table></section><section id="mutierende-joins-verknüpfungen" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="mutierende-joins-verknüpfungen">
+<span class="header-section-number">7.2</span> Mutierende Joins (Verknüpfungen)</h2>
+<p><code>Mutierende Joins</code> verhalten sich wie die <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>-Funktion, indem sie neue Spalten zu einer Tabelle auf Basis der Werte in einer anderen Tabelle hinzufügen.</p>
+<p>Alle mutierenden Joins haben diese grundlegende Syntax:</p>
+<p><code>****_join(x, y, by = NULL, suffix = c(".x", ".y"))</code></p>
+<ul>
+<li>
+<code>x</code> = die erste (linke) Tabelle</li>
+<li>
+<code>y</code> = die zweite (rechte) Tabelle</li>
+<li>
+<code>by</code> = welche Spalten abgeglichen werden sollen. Wenn Sie dies leer lassen, wird es auf allen Spalten mit denselben Namen in den beiden Tabellen abgeglichen. Beobachtungen, die in diesen Spalten die selben Werte haben (z.B. die selbe ID), werden miteinander verknüpft</li>
+<li>
+<code>suffix</code> = wenn Spalten denselben Namen in beiden Tabellen haben, aber Sie nicht nach ihnen verbinden, erhalten sie ein Suffix, um sie eindeutig zu machen. Dies ist standardmäßig “.x” und “.y”, aber Sie können es in etwas Sinnvolleres ändern.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sie können das Argument <code>by</code> weglassen, wenn Sie auf allen Spalten mit demselben Namen abgleichen, aber es ist gute Praxis, es immer anzugeben, damit Ihr Code robust gegenüber Änderungen in den geladenen Daten bleibt.</p>
+</div>
+</div>
+<section id="sec-left_join" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="sec-left_join">
+<span class="header-section-number">7.2.1</span> left_join()</h3>
+<div class="join">
+<p><img src="images/joins/left_join.png"></p>
+</div>
+<p>Ein <code>left_join</code> behält alle Daten der ersten (linken) Tabelle bei und fügt alles hinzu, was mit der zweiten (rechten) Tabelle übereinstimmt. Die folgende Animation veranschaulicht einen <code>left_join()</code>:</p>
+<!-- left join animation by Garrick Aden-Buie from the tidyexplain repo -->
+<div class="join">
+<p><img src="images/joins/left-join.gif"></p>
+</div>
+<p>Wenn die rechte Tabelle mehr als eine Übereinstimmung für eine Zeile in der linken Tabelle hat, gibt es mehr als eine Zeile in der verbundenen Tabelle (siehe IDs 4 und 5).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>left_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(customers, orders, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>left_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: right;">items</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="join">
+<p><img src="images/joins/left_join_rev.png"></p>
+</div>
+<p>Die Reihenfolge, in der Sie die Tabellen angeben, ist wichtig. Im folgenden Code haben wir die Reihenfolge umgekehrt, sodass das Ergebnis alle Zeilen aus der <code>orders</code>-Tabelle enthält, die mit den passenden Zeilen aus der <code>customers</code>-Tabelle verbunden sind.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>left2_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(orders, customers, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>left2_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">items</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-right_join" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="sec-right_join">
+<span class="header-section-number">7.2.2</span> right_join()</h3>
+<div class="join">
+<p><img src="images/joins/right_join.png"></p>
+</div>
+<p>Ein <code>right_join</code> behält alle Daten der zweiten (rechten) Tabelle bei und fügt alles hinzu, was mit der ersten (linken) Tabelle übereinstimmt. Die folgende Animation veranschaulicht einen <code>right_join</code>:</p>
+<!-- left join animation by Garrick Aden-Buie from the tidyexplain repo -->
+<div class="join">
+<p><img src="images/joins/right-join.gif"></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>right_data <span class="ot">&lt;-</span> <span class="fu">right_join</span>(customers, orders, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>right_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: right;">items</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Tabelle enthält dieselben Informationen wie <code>left_join(orders, customers, by = "id")</code>, aber die Spalten sind in einer anderen Reihenfolge (zuerst linke Tabelle, dann rechte Tabelle).</p>
+</div>
+</div>
+</section><section id="sec-inner_join" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="sec-inner_join">
+<span class="header-section-number">7.2.3</span> inner_join()</h3>
+<div class="join">
+<p><img src="images/joins/inner_join.png"></p>
+</div>
+<p>Ein <code>inner_join</code> gibt alle Zeilen zurück, die in beiden Tabellen eine Übereinstimmung haben. Das Ändern der Reihenfolge der Tabellen ändert die Reihenfolge der Spalten, aber nicht, welche Zeilen erhalten bleiben.</p>
+<p>Die folgende Animation veranschaulicht einen <code>inner_join</code>:</p>
+<!-- left join animation by Garrick Aden-Buie from the tidyexplain repo -->
+<div class="join">
+<p><img src="images/joins/inner-join.gif"></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>inner_data <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(customers, orders, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>inner_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: right;">items</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-full_join" class="level3" data-number="7.2.4"><h3 data-number="7.2.4" class="anchored" data-anchor-id="sec-full_join">
+<span class="header-section-number">7.2.4</span> full_join()</h3>
+<div class="join">
+<p><img src="images/joins/full_join.png"></p>
+</div>
+<p>Ein <code>full_join</code> ermöglicht es, Zeilen in zwei Tabellen zu verbinden und dabei alle Informationen aus beiden Tabellen zu behalten. Wenn eine Zeile in der anderen Tabelle keine Übereinstimmung hat, werden die Spaltenwerte der anderen Tabelle auf <code>NA</code> gesetzt.</p>
+<p>Die folgende Animation veranschaulicht einen <code>full-join</code>:</p>
+<div class="join">
+<p><img src="images/joins/full-join.gif"></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>full_data <span class="ot">&lt;-</span> <span class="fu">full_join</span>(customers, orders, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>full_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: right;">items</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section></section><section id="filternde-joins" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="filternde-joins">
+<span class="header-section-number">7.3</span> Filternde Joins</h2>
+<p><code>Filternde Joins</code> verhalten sich wie die <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code>-Funktion, indem sie Zeilen aus den Daten in einer Tabelle auf Basis der Werte in einer anderen Tabelle behalten oder entfernen. Das Ergebnis eines filternden Joins enthält nur Zeilen aus der linken Tabelle und hat dieselbe Anzahl oder weniger Zeilen wie die linke Tabelle.</p>
+<section id="sec-semi_join" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-semi_join">
+<span class="header-section-number">7.3.1</span> semi_join()</h3>
+<div class="join">
+<p><img src="images/joins/semi_join.png"></p>
+</div>
+<p>Ein <code>semi_join</code> gibt alle Zeilen aus der linken Tabelle zurück, bei denen es passende Werte in der rechten Tabelle gibt, wobei nur Spalten aus der linken Tabelle beibehalten werden.</p>
+<p>Die Folgende Animation veranschaulicht einen <code>semi_join</code>:</p>
+<div class="join">
+<p><img src="images/joins/semi-join.gif"></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>semi_data <span class="ot">&lt;-</span> <span class="fu">semi_join</span>(customers, orders, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>semi_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Im Gegensatz zu einem inner_join wird ein semi_join niemals die Zeilen in der linken Tabelle duplizieren, wenn es mehr als eine passende Zeile in der rechten Tabelle gibt.</p>
+</div>
+</div>
+<div class="join">
+<p><img src="images/joins/semi_join_rev.png"></p>
+</div>
+<p>Da nur die Spalten der Linken Tabelle erhalten bleiben, ist die Reihenfolge bei einem semi_join wichtig.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>semi2_data <span class="ot">&lt;-</span> <span class="fu">semi_join</span>(orders, customers, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>semi2_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">items</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-anti_join" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-anti_join">
+<span class="header-section-number">7.3.2</span> anti_join()</h3>
+<div class="join">
+<p><img src="images/joins/anti_join.png"></p>
+</div>
+<p>Ein <code>anti_join</code> gibt alle Zeilen aus der linken Tabelle zurück, bei denen es <em>keine</em> passenden Werte in der rechten Tabelle gibt, wobei nur Spalten aus der linken Tabelle beibehalten werden.</p>
+<p>Die folgende Animation veranschaulicht einen <code>anti-join</code>:</p>
+<div class="join">
+<p><img src="images/joins/anti-join.gif"></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>anti_data <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(customers, orders, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>anti_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Die Reihenfolge ist wichtig bei einem anti join.</p>
+<div class="join">
+<p><img src="images/joins/anti_join_rev.png"></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>anti2_data <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(orders, customers, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>anti2_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">items</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section></section><section id="verknüpfung-von-mehr-als-zwei-tabellen" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="verknüpfung-von-mehr-als-zwei-tabellen">
+<span class="header-section-number">7.4</span> Verknüpfung von mehr als zwei Tabellen</h2>
+<p>Die <code>****_join()</code>-Funktionen sind alles <strong>Zwei-Tabellen-Verben</strong>, das heißt, Sie können jeweils nur zwei Tabellen miteinander verbinden. Wenn man jedoch mehrere Tabellen verbinden musst, kann man einfach weitere Joins hinzufügen. Dies kann man tun, indem man ein Zwischenobjekt erstellt oder effizienter durch die Verwendung einer Pipe:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># erstelle eine Tabelle mit Gesamtkundenzufriedenheitswerten</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>satisfaction <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="at">satisfaction =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb13-5"><a href="#cb13-5"></a>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co"># führe den ersten Join durch</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>join_1 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(customers, orders, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co"># führe den zweiten Join am neuen Objekt durch</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>join_2 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(join_1, satisfaction, </span>
+<span id="cb13-12"><a href="#cb13-12"></a>                    <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># effizientere Methode unter Verwendung der Pipe</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>pipe_join <span class="ot">&lt;-</span> customers <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">left_join</span>(orders, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">left_join</span>(satisfaction, <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Auf jeder Stufe einer Analyse sollte man <strong>die Ausgabe überprüfen</strong>, um sicherzustellen, dass das, was man erstellt hat, auch das ist, was man beabsichtigt hat. Dies gilt insbesondere für Joins. Man sollte die Zwischenschritte durch routinemäßige Überprüfungen mit Funktionen wie <code>glimpse()</code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, und <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> anschauen, um eine grobe Vorstellung davon zu haben, was der Join ergeben sollte. Mindestens sollte man wissen, ob das verbundene Objekt zu mehr oder weniger Variablen und Beobachtungen führen sollten.</p>
+<p>Wenn Sie einen mehrzeiligen Join wie im obigen piped Beispiel haben, bauen Sie den Code schrittweise auf und überprüfen Sie die Ausgabe auf jeder Stufe.</p>
+</div>
+</div>
+</section><section id="bindende-joins" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="bindende-joins">
+<span class="header-section-number">7.5</span> Bindende Joins</h2>
+<p><code>Bindende Joins</code> binden eine Tabelle an eine andere, indem sie ihre Zeilen oder Spalten zusammenfügen.</p>
+<section id="sec-bind_rows" class="level3" data-number="7.5.1"><h3 data-number="7.5.1" class="anchored" data-anchor-id="sec-bind_rows">
+<span class="header-section-number">7.5.1</span> bind_rows()</h3>
+<p>Mit der Funktion <code>bind_rows</code> kann man die Zeilen von zwei Tabellen mit zusammenfügen. Hier fügen wir Kundendaten für die Kunden 6-9 hinzu und verbinden diese mit der ursprünglichen Kundentabelle.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>new_customers <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="at">id =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="at">city =</span> <span class="fu">c</span>(<span class="st">"Falkirk"</span>, <span class="st">"Ardbeg"</span>, <span class="st">"Doogal"</span>, <span class="st">"Kirkwall"</span>),</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="at">postcode =</span> <span class="fu">c</span>(<span class="st">"FK1 4RS"</span>, <span class="st">"PA42 7EA"</span>, <span class="st">"G81 4SJ"</span>, <span class="st">"KW15 1SE"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a>bindr_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(customers, new_customers)</span>
+<span id="cb15-8"><a href="#cb15-8"></a>bindr_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Falkirk</td>
+<td style="text-align: left;">FK1 4RS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Ardbeg</td>
+<td style="text-align: left;">PA42 7EA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Doogal</td>
+<td style="text-align: left;">G81 4SJ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Kirkwall</td>
+<td style="text-align: left;">KW15 1SE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Die Spalten müssen nur dieselben Namen haben, sie müssen nicht in der gleichen Reihenfolge sein. Alle Spalten, die nicht in beiden Tabellen enthalten sind, haben einfach <code>NA</code>-Werte für Einträge aus der anderen Tabelle.</p>
+<p>Wenn eine Zeile in beiden Tabellen vorkommt, wird die Zeile in der resultierenden Tabelle doppelt vorkommen. Wenn Ihre Tabellen genau dieselben Spalten haben, können Sie <code><a href="https://rdrr.io/r/base/sets.html">union()</a></code> verwenden, um Duplikate zu vermeiden (werden wir gleich sehen).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>new_customers <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="at">id =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="at">postcode =</span> <span class="fu">c</span>(<span class="st">"PA75 6NR"</span>, <span class="st">"FK1 4RS"</span>, <span class="st">"PA42 7EA"</span>, <span class="st">"G81 4SJ"</span>, <span class="st">"KW15 1SE"</span>),</span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="at">city =</span> <span class="fu">c</span>(<span class="st">"Tobermory"</span>, <span class="st">"Falkirk"</span>, <span class="st">"Ardbeg"</span>, <span class="st">"Doogal"</span>, <span class="st">"Kirkwall"</span>),</span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="at">new =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a>bindr2_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(customers, new_customers)</span>
+<span id="cb16-9"><a href="#cb16-9"></a>bindr2_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: right;">new</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Falkirk</td>
+<td style="text-align: left;">FK1 4RS</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Ardbeg</td>
+<td style="text-align: left;">PA42 7EA</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Doogal</td>
+<td style="text-align: left;">G81 4SJ</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Kirkwall</td>
+<td style="text-align: left;">KW15 1SE</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-bind_cols" class="level3" data-number="7.5.2"><h3 data-number="7.5.2" class="anchored" data-anchor-id="sec-bind_cols">
+<span class="header-section-number">7.5.2</span> bind_cols()</h3>
+<p>Man kann Tabellen auch mit der Funktion <code>bind_cols</code> zusammenführen. Dies sollte man jedoch nur tun, wenn beide Tabllen die gleiche Anzahl Zeilen haben und diese genau die selbe Reihenfolge haben. Diese Funktion ist also mit Vorsicht zu geniessen und im Zweifelsfall sollte für solche Operationen eine Funktion wie <code>left_join</code> verwendet werden.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>new_info <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="at">colour =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>, <span class="st">"yellow"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3"></a>)</span>
+<span id="cb17-4"><a href="#cb17-4"></a></span>
+<span id="cb17-5"><a href="#cb17-5"></a>bindc_data <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(customers, new_info)</span>
+<span id="cb17-6"><a href="#cb17-6"></a>bindc_data </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: left;">colour</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+<td style="text-align: left;">red</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+<td style="text-align: left;">orange</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">yellow</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+<td style="text-align: left;">green</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: left;">blue</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Der einzige Vorteil von <code>bind_cols()</code> gegenüber einem mutierenden Join besteht darin, wenn die Tabellen keine IDs zum Verbinden haben und Sie sich ausschließlich auf ihre Reihenfolge verlassen müssen. Ansonsten sollten Sie einen mutierenden Join verwenden (alle vier mutierenden Joins ergeben das gleiche Ergebnis, wenn alle Zeilen in jeder Tabelle genau eine Übereinstimmung in der anderen Tabelle haben).</p>
+</div>
+</div>
+</section></section><section id="mengenoperationen" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="mengenoperationen">
+<span class="header-section-number">7.6</span> Mengenoperationen</h2>
+<p><code>Mengenoperationen</code> vergleichen zwei Tabellen und geben Zeilen zurück, die übereinstimmen (intersect), in einer der beiden Tabellen sind (union) oder in einer Tabelle, aber nicht in der anderen sind (setdiff).</p>
+<section id="sec-intersect" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="sec-intersect">
+<span class="header-section-number">7.6.1</span> intersect()</h3>
+<p><code><a href="https://generics.r-lib.org/reference/setops.html">dplyr::intersect()</a></code> gibt alle Zeilen in zwei Tabellen zurück, die genau übereinstimmen. Die Spalten müssen nicht in derselben Reihenfolge sein, müssen aber dieselben Namen haben.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>new_customers <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="at">id =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="at">postcode =</span> <span class="fu">c</span>(<span class="st">"PA75 6NR"</span>, <span class="st">"FK1 4RS"</span>, <span class="st">"PA42 7EA"</span>, <span class="st">"G81 4SJ"</span>, <span class="st">"KW15 1SE"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4"></a>  <span class="at">city =</span> <span class="fu">c</span>(<span class="st">"Tobermory"</span>, <span class="st">"Falkirk"</span>, <span class="st">"Ardbeg"</span>, <span class="st">"Doogal"</span>, <span class="st">"Kirkwall"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a>)</span>
+<span id="cb18-6"><a href="#cb18-6"></a></span>
+<span id="cb18-7"><a href="#cb18-7"></a>intersect_data <span class="ot">&lt;-</span> <span class="fu">intersect</span>(customers, new_customers)</span>
+<span id="cb18-8"><a href="#cb18-8"></a>intersect_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Sie vergessen haben, dplyr oder das tidyverse zu laden, hat <code>base R</code> auch eine <code><a href="https://rdrr.io/r/base/sets.html">base::intersect()</a></code>-Funktion, die nicht wie <code><a href="https://generics.r-lib.org/reference/setops.html">dplyr::intersect()</a></code> funktioniert. Die Fehlermeldung kann verwirrend sein und sieht ungefähr so aus:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>base<span class="sc">::</span><span class="fu">intersect</span>(customers, new_customers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code><a href="https://rdrr.io/r/base/list.html">list()</a></code></pre>
+</div>
+</div>
+</div>
+</div>
+</section><section id="sec-union" class="level3" data-number="7.6.2"><h3 data-number="7.6.2" class="anchored" data-anchor-id="sec-union">
+<span class="header-section-number">7.6.2</span> union()</h3>
+<p><code><a href="https://generics.r-lib.org/reference/setops.html">dplyr::union()</a></code> gibt alle Zeilen aus beiden Tabellen zurück und entfernt dabei, im Gegensatz zu <code>bind_rows()</code>, doppelte Zeilen.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>union_data <span class="ot">&lt;-</span> <span class="fu">union</span>(customers, new_customers)</span>
+<span id="cb21-2"><a href="#cb21-2"></a>union_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Tobermory</td>
+<td style="text-align: left;">PA75 6NR</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Falkirk</td>
+<td style="text-align: left;">FK1 4RS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Ardbeg</td>
+<td style="text-align: left;">PA42 7EA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Doogal</td>
+<td style="text-align: left;">G81 4SJ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Kirkwall</td>
+<td style="text-align: left;">KW15 1SE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Sie vergessen haben, dplyr oder das tidyverse zu laden, hat <code>base R</code> auch eine <code><a href="https://rdrr.io/r/base/sets.html">base::union()</a></code>-Funktion. Sie erhalten normalerweise keine Fehlermeldung, aber das Ergebnis wird nicht das sein, was Sie erwarten.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>base<span class="sc">::</span><span class="fu">union</span>(customers, new_customers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1 2 3 4 5
+
+[[2]]
+[1] "Port Ellen" "Dufftown"   NA           "Aberlour"   "Tobermory" 
+
+[[3]]
+[1] "PA42 7DU" "AB55 4DH" NA         "AB38 7RY" "PA75 6NR"
+
+[[4]]
+[1] 5 6 7 8 9
+
+[[5]]
+[1] "PA75 6NR" "FK1 4RS"  "PA42 7EA" "G81 4SJ"  "KW15 1SE"
+
+[[6]]
+[1] "Tobermory" "Falkirk"   "Ardbeg"    "Doogal"    "Kirkwall" </code></pre>
+</div>
+</div>
+</div>
+</div>
+</section><section id="sec-setdiff" class="level3" data-number="7.6.3"><h3 data-number="7.6.3" class="anchored" data-anchor-id="sec-setdiff">
+<span class="header-section-number">7.6.3</span> setdiff()</h3>
+<p><code><a href="https://generics.r-lib.org/reference/setops.html">dplyr::setdiff</a></code> gibt Zeilen zurück, die in der ersten Tabelle, aber nicht in der zweiten Tabelle sind.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>setdiff_data <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(customers, new_customers)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>setdiff_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Port Ellen</td>
+<td style="text-align: left;">PA42 7DU</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dufftown</td>
+<td style="text-align: left;">AB55 4DH</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aberlour</td>
+<td style="text-align: left;">AB38 7RY</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Die Reihenfolge ist wichtig für <code>setdiff</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>setdiff2_data <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(new_customers, customers)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>setdiff2_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: left;">city</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">FK1 4RS</td>
+<td style="text-align: left;">Falkirk</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">PA42 7EA</td>
+<td style="text-align: left;">Ardbeg</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">G81 4SJ</td>
+<td style="text-align: left;">Doogal</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">KW15 1SE</td>
+<td style="text-align: left;">Kirkwall</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Sie vergessen haben, dplyr oder das tidyverse zu laden, hat <code>base R</code> auch eine <code><a href="https://rdrr.io/r/base/sets.html">base::setdiff()</a></code>-Funktion. Sie erhalten normalerweise keine Fehlermeldung, aber das Ergebnis ist möglicherweise nicht das, was Sie erwarten, weil <code><a href="https://rdrr.io/r/base/sets.html">base::setdiff()</a></code> erwartet, dass die Spalten in derselben Reihenfolge sind, sodass die ID 5 hier als unterschiedlich zwischen den beiden Tabellen registriert wird.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>base<span class="sc">::</span><span class="fu">setdiff</span>(customers, new_customers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$id
+[1] 1 2 3 4 5
+
+$city
+[1] "Port Ellen" "Dufftown"   NA           "Aberlour"   "Tobermory" 
+
+$postcode
+[1] "PA42 7DU" "AB55 4DH" NA         "AB38 7RY" "PA75 6NR"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="konflikte-bei-variablentypen" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="konflikte-bei-variablentypen">
+<span class="header-section-number">7.7</span> Konflikte bei Variablentypen</h2>
+<p>Beim Verbinden von Datensätzen anhand gemeinsamer Spalten ist es wichtig, dass nicht nur die Variablennamen identisch sind, sondern auch der Datentyp dieser Variablen identisch ist.</p>
+<p>Um das zu veranschaulichen, erstellen wir unseren <code>new_customers</code>-Datenset erneut, aber diesmal spezifizieren wir, dass <code>id</code> eine <code>character</code>-Variable ist.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>new_customers2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="at">id =</span> <span class="fu">as.character</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">9</span>),</span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="at">postcode =</span> <span class="fu">c</span>(<span class="st">"PA75 6NR"</span>, <span class="st">"FK1 4RS"</span>, <span class="st">"PA42 7EA"</span>, <span class="st">"G81 4SJ"</span>, <span class="st">"KW15 1SE"</span>),</span>
+<span id="cb28-4"><a href="#cb28-4"></a>  <span class="at">city =</span> <span class="fu">c</span>(<span class="st">"Tobermory"</span>, <span class="st">"Falkirk"</span>, <span class="st">"Ardbeg"</span>, <span class="st">"Doogal"</span>, <span class="st">"Kirkwall"</span>)</span>
+<span id="cb28-5"><a href="#cb28-5"></a>)</span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="fu">str</span>(new_customers2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [5 × 3] (S3: tbl_df/tbl/data.frame)
+ $ id      : chr [1:5] "5" "6" "7" "8" ...
+ $ postcode: chr [1:5] "PA75 6NR" "FK1 4RS" "PA42 7EA" "G81 4SJ" ...
+ $ city    : chr [1:5] "Tobermory" "Falkirk" "Ardbeg" "Doogal" ...</code></pre>
+</div>
+</div>
+<p>Wenn wir versuchen, diesen Datensatz mit einem der anderen Datensätze zu verbinden, in denen <code>id</code> als <code>numeric</code>-Variable gespeichert ist, wird ein Fehler erzeugt.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co">#inner_join(customers, new_customers2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dasselbe gilt für <code>bind_rows()</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co">#bind_rows(customers, new_customers2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Um dies zu vermeiden, müssen wir den Datentyp einer der beiden Variablen ändern. Dies kann man unter anderem mit den folgenden Funktionen tun:</p>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> - konvertiert eine Variable zu <code>numeric</code>. Nützlich, wenn Sie eine Variable aus Zahlen haben, die als Zeichen codiert wurden. Alle Werte, die nicht in Zahlen umgewandelt werden können (z. B. wenn Sie das Wort “missing” in Zellen haben, für die Sie keine Daten haben), werden als <code>NA</code> zurückgegeben.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> - konvertiert eine Variable zu einem <code>factor</code>. Sie können die Faktorstufen und -labels manuell festlegen oder die Standardreihenfolge (alphabetisch) verwenden.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> - konvertiert eine Variable zu <code>character</code>-Daten.</li>
+</ul>
+<p>Um diese Funktionen auf eine Variable anzuwenden, können wir <code>mutate()</code> verwenden, um die Variable mit dieser Variablen als dem neuen Datentyp zu überschreiben:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>new_customers2 <span class="ot">&lt;-</span> new_customers2 <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">as.numeric</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sobald wir dies getan haben, funktionieren die Joins nun:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">inner_join</span>(orders, new_customers2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(id)`</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">items</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: left;">city</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: left;">Tobermory</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">PA75 6NR</td>
+<td style="text-align: left;">Tobermory</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">FK1 4RS</td>
+<td style="text-align: left;">Falkirk</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">FK1 4RS</td>
+<td style="text-align: left;">Falkirk</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">PA42 7EA</td>
+<td style="text-align: left;">Ardbeg</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="übungen" class="level2" data-number="7.8"><h2 data-number="7.8" class="anchored" data-anchor-id="übungen">
+<span class="header-section-number">7.8</span> Übungen</h2>
+<p>Es gibt viele verschiedene Anwendungsfälle für die <code>****_join()</code>-Funktionen. Diese Übungen ermöglichen es Ihnen, verschiedene Joins zu üben. Wenn Sie Beispiele haben, wo Joins in Ihrer eigenen Arbeit hilfreich sein könnten, teilen Sie diese bitte im Teams im Kanal der Woche 6 mit, da viele konkrete Beispiele dabei helfen können, zwischen den verschiedenen Joins zu unterscheiden.</p>
+<section id="notendaten" class="level3" data-number="7.8.1"><h3 data-number="7.8.1" class="anchored" data-anchor-id="notendaten">
+<span class="header-section-number">7.8.1</span> Notendaten</h3>
+<p>Das Bewertungsschema Schedule A der Universität Glasgow verwendet eine 22-stufige alphanumerische Skala (weitere Informationen finden Sie in Ihrem zusammenfassenden Bericht <a href="https://sway.office.com/k0CnXGd6RjbVokkR" target="_blank">Bewertungsinformationsblatt</a>). Jede alphanumerische Note (z. B. B2) hat einen zugrunde liegenden numerischen Notenpunkt (z. B. 16).</p>
+<p>Oft, wenn wir mit Studentennoten arbeiten, werden sie uns nur in einer dieser Formen zur Verfügung gestellt, aber wir müssen in der Lage sein, zwischen den beiden zu wechseln. Zum Beispiel benötigen wir die numerische Form, um deskriptive Statistiken über die Durchschnittsnote berechnen zu können, aber wir benötigen die alphanumerische Form, um sie den Studentenakten freizugeben.</p>
+<ul>
+<li><p>Laden Sie <a href="data/grade_data1.csv" download="">grade_data.csv</a>, <a href="data/grade_data2.csv" download="">grade_data2.csv</a> und <a href="data/scheduleA.csv" download="">scheduleA.csv</a> in Ihren Datenordner.</p></li>
+<li><p>Lesen Sie <code>scheduleA.csv</code> ein und speichern Sie es in einem Objekt namens <code>schedule</code>.</p></li>
+<li><p>Lesen Sie <code>grade_data1.csv</code> ein und speichern Sie es in einem Objekt namens <code>grades1</code>.</p></li>
+<li><p>Lesen Sie <code>grade_data2.csv</code> ein und speichern Sie es in einem Objekt namens <code>grades2</code>.</p></li>
+</ul>
+<div class="cell" data-layout-align="center" data-webex.hide="true">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>schedule <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/scheduleA.csv"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2"></a>grades1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grade_data1.csv"</span>) </span>
+<span id="cb35-3"><a href="#cb35-3"></a>grades2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grade_data2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="übereinstimmung-der-variablentypen" class="level3" data-number="7.8.2"><h3 data-number="7.8.2" class="anchored" data-anchor-id="übereinstimmung-der-variablentypen">
+<span class="header-section-number">7.8.2</span> Übereinstimmung der Variablentypen</h3>
+<p>An der UofG erhält jeder Student eine GUID, eine numerische ID-Nummer. Diese ID-Nummer wird jedoch auch mit dem ersten Buchstaben Ihres Nachnamens kombiniert, um Ihren Benutzernamen zu erstellen, der zusammen mit Ihrer E-Mail-Adresse verwendet wird. Wenn beispielsweise Ihre ID 1234567 lautet und Ihr Nachname Nordmann ist, lautet Ihr Benutzername 1234567n. Aus Sicht der Datenbereinigung ist dies sehr ärgerlich, da die numerische ID als numerische Daten gespeichert wird, der Benutzername jedoch als Zeichen aufgrund des Buchstabens am Ende gespeichert wird. <code>grades1</code> hat eine numerische ID, während <code>grades2</code> den zusätzlichen Buchstaben hat. Um diese Datensätze zu verbinden, müssen wir die Variablen standardisieren.</p>
+<p>Zuerst entfernen Sie den Buchstaben aus <code>id</code> mit der Funktion <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">stringr::str_replace_all()</a></code>, die Text ersetzt, der einem Muster entspricht. Hier verwenden wir das Muster <code>"[a-z]"</code>, das alle Kleinbuchstaben a bis z findet, und ersetzen sie mit <code>""</code>. Siehe die Hilfe für <code>?about_search_regex</code> für weitere Informationen darüber, wie man Muster festlegt (diese können wirklich komplex werden).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>grades1 <span class="ot">&lt;-</span> grades1 <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb36-3"><a href="#cb36-3"></a>    id, <span class="co"># die Variable, die Sie durchsuchen möchten</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a>    <span class="at">pattern =</span> <span class="st">"[a-z]"</span>, <span class="co"># finde alle Buchstaben a-z</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>    <span class="at">replacement =</span> <span class="st">""</span> <span class="co"># ersetzen mit nichts</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>  ))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nun transformieren Sie den Datentyp von <code>id</code>, damit er mit dem Datentyp in <code>grades2</code> übereinstimmt.</p>
+<div class="cell" data-layout-align="center" data-webex.hide="true">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># überprüfen Sie die Variablentypen</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="fu">glimpse</span>(grades1)</span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="fu">glimpse</span>(grades2) </span>
+<span id="cb37-4"><a href="#cb37-4"></a></span>
+<span id="cb37-5"><a href="#cb37-5"></a>grades1 <span class="ot">&lt;-</span> grades1 <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">as.numeric</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="vollständige-datensätze" class="level3" data-number="7.8.3"><h3 data-number="7.8.3" class="anchored" data-anchor-id="vollständige-datensätze">
+<span class="header-section-number">7.8.3</span> Vollständige Datensätze</h3>
+<p>In diesem Beispiel möchten wir die Notendaten mit Schedule A verbinden, sodass jeder Student mit einer Note sowohl die Note als auch den Notenpunkt hat. Wir möchten aber auch einen vollständigen Datensatz aller Kursteilnehmer haben, also sollten Studenten mit fehlenden Noten trotzdem in den Daten enthalten sein.</p>
+<ul>
+<li>Verbinden Sie <code>grades1</code> und <code>scheduleA</code> und speichern Sie diese Tabelle in einem Objekt namens <code>exam_all</code>.</li>
+<li>Machen Sie dasselbe für <code>grades2</code> und speichern Sie es in <code>essay_all</code>.</li>
+<li>Sowohl <code>exam_all</code> als auch <code>essay_all</code> sollten 100 Beobachtungen von 4 Variablen haben.</li>
+</ul>
+<p>Hinweis: Sie möchten alle Daten aus <code>grade_data1</code> und <code>grade_data2</code> behalten, aber Sie möchten nur die alphanumerischen Noten aus <code>schedule</code> für die Notenpunktwerte, die in <code>grades</code> vorhanden sind. Z. B., wenn niemand ein F1 verliehen wurde, sollten Ihre endgültigen Datensätze das nicht enthalten.</p>
+<div class="cell" data-layout-align="center" data-webex.hide="true">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>exam_all <span class="ot">&lt;-</span> <span class="fu">left_join</span>(grades1, schedule, <span class="at">by =</span> <span class="st">"Points"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2"></a>essay_all <span class="ot">&lt;-</span> <span class="fu">left_join</span>(grades2, schedule, <span class="at">by =</span> <span class="st">"Points"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="fehlende-daten" class="level3" data-number="7.8.4"><h3 data-number="7.8.4" class="anchored" data-anchor-id="fehlende-daten">
+<span class="header-section-number">7.8.4</span> Fehlende Daten</h3>
+<p>Alternativ möchten Sie möglicherweise einen Datensatz haben, der nur Daten für Studenten enthält, die jede Bewertung eingereicht haben und eine Note haben. Zuerst führen Sie <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> sowohl auf <code>exam_all</code> als auch auf <code>essay_all</code> aus.</p>
+<ul>
+<li>Wie viele Prüfungsnoten fehlen?</li>
+<li>Wie viele Aufsatznoten fehlen?</li>
+</ul>
+<p>Nun erstellen Sie ein Objekt <code>exam_grades</code>, das <code>grades1</code> und <code>schedule</code> zusammenführt, aber diesmal sollte das resultierende Objekt nur Daten von Studenten enthalten, die eine Note haben. Machen Sie dasselbe für <code>grades2</code> und speichern Sie es in <code>essay_grades</code>.</p>
+<p>Bevor Sie dies tun, angesichts dessen, was Sie über die Anzahl der fehlenden Datenpunkte in jedem Datensatz wissen:</p>
+<ul>
+<li>Wie viele Beobachtungen sollte <code>exam_grades</code> haben?</li>
+<li>Wie viele Beobachtungen sollte <code>essay_grades</code> haben?</li>
+</ul>
+<div class="cell" data-layout-align="center" data-webex.hide="true">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>exam_grades <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(grades1, schedule, <span class="at">by =</span> <span class="st">"Points"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2"></a>essay_grades <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(grades2, schedule, <span class="at">by =</span> <span class="st">"Points"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Hide: Es ist erwähnenswert, dass Sie in der Realität nicht tatsächlich zu den Rohdaten zurückkehren und einen weiteren Join durchführen würden, um diesen Datensatz zu erhalten, sondern Sie könnten einfach alle fehlenden Antworten entfernen, indem Sie <code>%&gt;% drop_na()</code> zu <code>exam_all</code> und <code>essay_all</code> hinzufügen. Wir werden dies jedoch aus didaktischen Gründen auf diese etwas künstliche Weise tun.</p>
+<p>Nun erstellen Sie einen Datensatz <code>completes</code>, der die Noten für Studenten verbindet, die sowohl für den Aufsatz als auch für die Prüfung eine Note haben.</p>
+<ul>
+<li>Da sowohl <code>exam_grades</code> als auch <code>essay_grades</code> die Variablen <code>Assessment</code>, <code>Points</code> und <code>Grades</code> haben, die gleich benannt sind, aber unterschiedliche Daten haben, sollten Sie das Suffix ändern, damit die resultierenden Variablen <code>Points_exam</code> und <code>Points_essay</code> usw. benannt sind. Sie müssen möglicherweise die Hilfedokumentation konsultieren, um ein Beispiel zu sehen, um dies herauszufinden.</li>
+<li>Bereinigen Sie die Datei mit <code>select()</code> und behalten Sie nur die Variablen <code>id</code>, <code>Grade_exam</code> und <code>Grade_essay</code>
+</li>
+</ul>
+<div class="cell" data-layout-align="center" data-webex.hide="true">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>completes <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(exam_grades, essay_grades, </span>
+<span id="cb40-2"><a href="#cb40-2"></a>                        <span class="at">by =</span> <span class="st">"id"</span>, </span>
+<span id="cb40-3"><a href="#cb40-3"></a>                        <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_exam"</span>, <span class="st">"_essay"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a>  <span class="fu">select</span>(id, Grade_exam, Grade_essay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Wie viele Studenten haben eine Note für sowohl die Prüfung als auch den Aufsatz?</li>
+</ul>
+<p>N</p>
+<p>un erstellen Sie einen Datensatz <code>no_essay</code>, der Studenten enthält, die eine Note für die Prüfung haben, aber nicht für den Aufsatz.</p>
+<div class="cell" data-layout-align="center" data-webex.hide="true">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>no_essay <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(exam_grades, essay_grades, <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Wie viele Studenten haben eine Note für die Prüfung, aber nicht für den Aufsatz?</li>
+</ul>
+<p>Schließlich erstellen Sie nun einen Datensatz <code>no_exam</code>, der Studenten enthält, die eine Note für den Aufsatz haben, aber nicht für die Prüfung</p>
+<div class="cell" data-layout-align="center" data-webex.hide="true">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>no_exam <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(essay_grades, exam_grades, <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Wie viele Studenten haben eine Note für den Aufsatz, aber nicht für die Prüfung?</li>
+</ul></section><section id="teilen-auf-teams" class="level3" data-number="7.8.5"><h3 data-number="7.8.5" class="anchored" data-anchor-id="teilen-auf-teams">
+<span class="header-section-number">7.8.5</span> Teilen auf Teams</h3>
+<p>Wenn Sie fertig sind, teilen Sie Ihre gestrickte HTML-Datei und die Rmd-Datei für die Übungen auf Teams im Kanal der Woche 07.</p>
+</section></section><section id="sec-resources-joins" class="level2" data-number="7.9"><h2 data-number="7.9" class="anchored" data-anchor-id="sec-resources-joins">
+<span class="header-section-number">7.9</span> Weiterführende Ressourcen</h2>
+<ul>
+<li><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Data transformation cheatsheet</a></li>
+<li>
+<a href="https://r4ds.hadley.nz/joins">Kapitel 19: Joins</a> in <em>R für Datenwissenschaft</em>
+</li>
+<li>
+<a href="https://r4ds.hadley.nz/iteration">Kapitel 26: Iteration</a> in <em>R für Datenwissenschaft</em>.</li>
+<li><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf">purrr cheatsheet</a></li>
+</ul>
+
+
+</section></main><!-- /main --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
+
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+  
+  
+  var elem = document.getElementById("tabset-1-1-tab");
+    if (elem) {
+        elem.textContent = "Code";
+    }
+    
+ var elem = document.getElementById("tabset-1-2-tab");
+    if (elem) {
+        elem.textContent = "Interaktiv";
+    }
+    
+    
+});
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./06-wrangling.html" class="pagination-link" aria-label="Datenbereinigung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datenbereinigung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08-data-viz.html" class="pagination-link" aria-label="Datenvisualisierung">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Datenvisualisierung</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This is a translation/adaptation of the book <a href="https://psyteachr.github.io/ads-v3/">Applied Data Skills</a> by Emily Nordmann and Lisa DeBruine</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/psyteachr/ads-v3/edit/master/07-joins.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/ads-v3/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/ads-v3/blob/master/07-joins.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/psyteachr/ads-v3">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/psyteachr">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://doi.org/10.5281/zenodo.6365077">
+      <i class="bi bi-https://zenodo.org/badge/DOI/10.5281/zenodo.6365077.svg" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+</div>
+  </div>
+</footer>
+
+
+</body></html>
