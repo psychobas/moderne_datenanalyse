@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>8&nbsp; Datenvisualisierung – Einführung in die Datenanalyse mit R</title>
+<title>Einführung in die Datenanalyse mit R - 8&nbsp; Datenvisualisierung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -407,7 +407,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"1 + 1","options":{"out-width":"700px","fig-width":7,"context":"interactive","classes":"","read-only":"false","editor-word-wrap":"true","warning":"true","label":"unnamed-chunk-1","output":"true","editor-max-height":"","fig-cap":"","fig-height":5,"results":"markup","dpi":72,"editor-font-scale":"1","comment":"","autorun":"false","message":"true","editor-quick-suggestions":"false","out-height":""}}];
+globalThis.qwebrCellDetails = [{"code":"1 + 1","options":{"comment":"","editor-font-scale":"1","autorun":"false","out-height":"","read-only":"false","fig-width":7,"warning":"true","context":"interactive","editor-quick-suggestions":"false","editor-max-height":"","results":"markup","output":"true","editor-word-wrap":"true","label":"unnamed-chunk-1","fig-height":5,"fig-cap":"","message":"true","out-width":"700px","dpi":72,"classes":""},"id":1}];
 
 </script><script type="module">
 // Declare startupMessageQWebR globally
@@ -1606,13 +1606,13 @@ globalThis.qwebrExecuteCode = async function (
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08-data-viz.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Datenvisualisierung</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -1624,23 +1624,23 @@ globalThis.qwebrExecuteCode = async function (
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/psyteachr/ads-v3/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -2389,7 +2389,7 @@ $ rating    &lt;fct&gt; a little evil, very good, very good, very good</code></p
 <p>ließen (Schicht 4), die Achsenbeschriftungen werden für eine bessere Lesbarkeit bearbeitet (Schicht 5), und schließlich wird ein Thema angewendet, um das Gesamterscheinungsbild des Plots zu ändern (Schicht 6).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-layers" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-layers" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-layers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-layers-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2402,7 +2402,7 @@ Figure&nbsp;8.1: Evolution eines geschichteten Plots
 <p>Jede Schicht ist unabhängig und individuell anpassbar. Beispielsweise können die Größe, Farbe und Position jeder Komponente angepasst werden, oder man könnte beispielsweise das erste Geom (die Datenpunkte) entfernen, um nur die Linie der besten Anpassung zu visualisieren, indem man einfach die Schicht entfernt, die die Datenpunkte zeichnet (<a href="#fig-remove-layer" class="quarto-xref">Figure&nbsp;<span>8.2</span></a>). Die Verwendung von Schichten erleichtert den schrittweisen Aufbau komplexer Plots und die Anpassung oder Erweiterung von Plots aus vorhandenem Code.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-remove-layer" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-remove-layer" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-remove-layer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-remove-layer-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2500,7 +2500,7 @@ Definieren Sie Objekte, bevor Sie sie verwenden
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> survey_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-setup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-setup" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-setup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-setup-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2522,7 +2522,7 @@ Figure&nbsp;8.3: Ein leerer ggplot.
 <span id="cb24-4"><a href="#cb24-4"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> wait_time, <span class="at">y =</span> call_time)</span>
 <span id="cb24-5"><a href="#cb24-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-mapping" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-mapping" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-mapping-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-mapping-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2555,7 +2555,7 @@ ggplot-Argumentnamen
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time, <span class="at">y =</span> call_time)) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">geom_point</span>() <span class="co"># Streudiagramm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-geoms" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-geoms" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-geoms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-geoms-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2612,7 +2612,7 @@ Position des +
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-build-plot-geom2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-geom2" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-geom2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-geom2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2649,7 +2649,7 @@ Figure&nbsp;8.6: Punkte zuerst gegen Linie zuerst.
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># fügt Plots zusammen in 1 Reihe</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a>point_first <span class="sc">+</span> line_first <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-geom2b" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-geom2b" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-geom2b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-geom2b-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2690,7 +2690,7 @@ Versuchen Sie, nrow auf 2 zu ändern
 <span id="cb34-9"><a href="#cb34-9"></a>              <span class="at">colour =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, .<span class="dv">5</span>, .<span class="dv">8</span>),</span>
 <span id="cb34-10"><a href="#cb34-10"></a>              <span class="at">linetype =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-style" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-style" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-style-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-style-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2741,7 +2741,7 @@ Figure&nbsp;8.8: Ändern von Geom-Stilen.
 <span id="cb37-10"><a href="#cb37-10"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Anrufzeit (Sekunden)"</span>,</span>
 <span id="cb37-11"><a href="#cb37-11"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">600</span>, <span class="at">by =</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-axes" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-axes" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-axes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-axes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2811,7 +2811,7 @@ Die <code>labs</code> Funktion
 <span id="cb39-12"><a href="#cb39-12"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">360</span>), </span>
 <span id="cb39-13"><a href="#cb39-13"></a>                  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">180</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-limits" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-limits" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-limits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-limits-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2853,7 +2853,7 @@ Grenzen mit der scale_-Funktion festlegen
 <span id="cb40-13"><a href="#cb40-13"></a>  <span class="co"># das Theme ändern</span></span>
 <span id="cb40-14"><a href="#cb40-14"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_excel</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-theme" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-theme" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-theme-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2881,7 +2881,7 @@ Figure&nbsp;8.11: Ändern des Themes zum Google Docs-Stil.
 <span id="cb41-13"><a href="#cb41-13"></a>  <span class="co"># das Theme ändern</span></span>
 <span id="cb41-14"><a href="#cb41-14"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_economist</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-theme-economist" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-theme-economist" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-theme-economist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-theme-economist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2913,7 +2913,7 @@ Figure&nbsp;8.12: Ändern des Themes zum Google Docs-Stil.
 <span id="cb42-15"><a href="#cb42-15"></a>  <span class="fu">theme</span>(<span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb42-16"><a href="#cb42-16"></a>        <span class="at">plot.background =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-build-plot-custom-theme" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-build-plot-custom-theme" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-build-plot-custom-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-build-plot-custom-theme-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2948,7 +2948,7 @@ Figure&nbsp;8.13: Anpassen des Themes, um die x-Achsenlinie und den Hintergrundu
 <span id="cb43-19"><a href="#cb43-19"></a>       <span class="at">subtitle =</span> <span class="st">"Anrufdaten 2020"</span>,</span>
 <span id="cb43-20"><a href="#cb43-20"></a>       <span class="at">caption =</span> <span class="st">"Abbildung 1. Mit zunehmender Wartezeit steigt die Anrufzeit."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-caption" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-caption" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-caption-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-caption-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -2973,7 +2973,7 @@ Figure&nbsp;8.14: Hinzufügen eines Titels, Untertitels und einer Bildunterschri
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> issue_category)) <span class="sc">+</span></span>
 <span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-bar" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-bar" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3082,7 +3082,7 @@ Code
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">ggplot</span>(count_data, <span class="fu">aes</span>(<span class="at">x =</span> issue_category, <span class="at">y =</span> n)) <span class="sc">+</span></span>
 <span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-col" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-col" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-col-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-col-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3183,7 +3183,7 @@ Testen Sie Ihr Verständnis
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-histogram" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-histogram" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-histogram-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3208,7 +3208,7 @@ Figure&nbsp;8.17: Histogramm der Wartezeiten.
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time)) <span class="sc">+</span></span>
 <span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">30</span>, <span class="at">boundary =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-histogram-boundary0" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-histogram-boundary0" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-histogram-boundary0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-histogram-boundary0-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3228,7 +3228,7 @@ Figure&nbsp;8.18: Ein Histogramm mit der Grenze auf 0 gesetzt.
 <span id="cb52-6"><a href="#cb52-6"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Wartezeit (Sekunden)"</span>,</span>
 <span id="cb52-7"><a href="#cb52-7"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">600</span>, <span class="dv">60</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-histogram-custom" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-histogram-custom" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-histogram-custom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-histogram-custom-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3382,7 +3382,7 @@ Alternative zum Histogramm
 <span id="cb58-8"><a href="#cb58-8"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Wartezeit (Sekunden)"</span>,</span>
 <span id="cb58-9"><a href="#cb58-9"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">600</span>, <span class="dv">60</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-histogram-dodge" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-histogram-dodge" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-histogram-dodge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-histogram-dodge-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3419,7 +3419,7 @@ Alternative zum Häufigkeitsplot
 ℹ Please use `linewidth` instead.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-groups-freqpoly" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-groups-freqpoly" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-groups-freqpoly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-groups-freqpoly-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3452,7 +3452,7 @@ Figure&nbsp;8.21: Ein Häufigkeitsplot mit mehreren Gruppen.
 <span id="cb61-13"><a href="#cb61-13"></a></span>
 <span id="cb61-14"><a href="#cb61-14"></a>boxplot <span class="sc">+</span> custom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-box-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-box-plot" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-box-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-box-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3478,7 +3478,7 @@ Irreführende Balkendiagramme
 <p>Der Effekt sieht aber nur so dramatisch aus, weil die x-Achse nicht bei 0 beginnt. Plotten wir den gesamten Range der Daten (rechter plot) sehen wir, dass es fast keine Unterschiede gibt. Achten sie immer darauf, was sie mit einer Abbildung aussagen möchten. Und wie man sieht, kann man den plot entsprechend der gewünschten Aussage wählen. Später werden wir sehen, wie mann solche Plots mit Massen wie Konfidenzintervallen ergänzen kann, um dem etwas entgegenzuwirken.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-col-plot-bad" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-col-plot-bad" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-col-plot-bad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-col-plot-bad-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3558,7 +3558,7 @@ Testen Sie Ihr Verständnis
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time, <span class="at">y =</span> call_time)) <span class="sc">+</span></span>
 <span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-demo-point" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-demo-point" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-demo-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-demo-point-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3586,7 +3586,7 @@ Figure&nbsp;8.24: Streudiagramm mit geom_point().
 <span id="cb63-12"><a href="#cb63-12"></a></span>
 <span id="cb63-13"><a href="#cb63-13"></a>lm_plot <span class="sc">+</span> loess_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-2-continuous" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-2-continuous" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-2-continuous-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-2-continuous-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3617,7 +3617,7 @@ Fehler-Schattierung
 <span id="cb64-2"><a href="#cb64-2"></a>                        <span class="at">y =</span> satisfaction)) <span class="sc">+</span> </span>
 <span id="cb64-3"><a href="#cb64-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">formula =</span> y<span class="sc">~</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-date-x" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-date-x" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-date-x-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-date-x-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3638,7 +3638,7 @@ Figure&nbsp;8.26: Plotting dates.
 <span id="cb65-7"><a href="#cb65-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Kundenzufriedenheit"</span>) <span class="sc">+</span></span>
 <span id="cb65-8"><a href="#cb65-8"></a>  <span class="fu">ggtitle</span>(<span class="st">"Kundenzufriedenheit 2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-date-month" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-date-month" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-date-month-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-date-month-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3704,7 +3704,7 @@ Solution
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a><span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> call_time, <span class="at">y =</span> satisfaction)) <span class="sc">+</span> </span>
 <span id="cb67-2"><a href="#cb67-2"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-over-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-over-plot" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-over-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-over-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3734,7 +3734,7 @@ Figure&nbsp;8.28: Überlappende Daten erschweren das Verständnis von Plots.
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a><span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> call_time, <span class="at">y =</span> satisfaction)) <span class="sc">+</span></span>
 <span id="cb68-2"><a href="#cb68-2"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> .<span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-jitter-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-jitter-plot" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-jitter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-jitter-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -3759,7 +3759,7 @@ Figure&nbsp;8.29: Jitter-Diagramm.
 <span id="cb69-9"><a href="#cb69-9"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Anrufzeit (Sekunden)"</span>,</span>
 <span id="cb69-10"><a href="#cb69-10"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">600</span>, <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-fact-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-fact-plot" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-fact-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="08-data-viz_files/figure-html/fig-fact-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -4329,7 +4329,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -4361,29 +4372,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -4391,7 +4380,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>4&nbsp; Daten Import und Export in R – Einführung in die Datenanalyse mit R</title>
+<title>Einführung in die Datenanalyse mit R - 4&nbsp; Daten Import und Export in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -107,13 +107,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-import-export.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Daten Import und Export in R</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -125,23 +125,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/psyteachr/ads-v3/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -242,9 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">
-<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Daten Import und Export in R</span>
-</h1>
+<h1 class="title"><span id="sec-import" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Daten Import und Export in R</span></span></h1>
 </div>
 
 
@@ -270,14 +268,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">4.1.2</span> Import durch Pfadangabe</h3>
 <p>Die oben genannt Methode hat einen erheblichen Nachteil: sie ist durch andere nicht reporduzierbar. Wie schon gesagt ist ein grosser Vorteil von R, dass die Analysen durch das Ausführen gesamter Skripte reproduzierbar sind. Erfordert ein Skript menschlichen Input (Auswahl der Datei via Menü) ist es nicht mehr 100% reproduzierbar. Deshalb verwenden wir diese Mehtode nur zu Beginn. Besser ist es, die Daten via Pfadangabe einzulesen. Anstatt die Datei manuell auszuwählen, spezifizieren wir dabei den Pfad der Datei (also der Ort auf dem Computer, wo sich die Datei befindet).</p>
 <p>Und nun zahlt es sich aus, dass wir im ersten Kapitel ein Projekt und eine Ordnerstruktur erstellt haben. Dies vereinfacht nämlich die Arbeit mit externen Daten und deren Pfaden enorm. Der Grund dafür ist, dass R nun bei der Angabe von Pfaden bereits im Projektordner “sucht”. Dies können wir verifizieren, indem wir uns das Arbeitsverzeichnis (working directory) von R anzeigen lassen:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -285,15 +283,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/dominik/Dropbox/Uni/Psychologie/PhD/Teaching/Data Analysis Introduction/data_analysis_quarto"</code></pre>
+<pre><code>[1] "/Users/meidom02/Dropbox/Uni/Psychologie/PhD/Teaching/Data Analysis Introduction/data_analysis_quarto"</code></pre>
 </div>
 </div>
 <p>Das heisst, dass wir nicht den ganzen Pfad zu einer Datei, also zum Beispiel <code>"/Users/dominik/Dropbox/Uni/Psychologie/PhD/Teaching/Data Analysis Introduction/book/data/test_data.csv"</code> angeben müssen, sondern nur den letzten Teil, <code>data/test_data.csv</code>.</p>
 <p>Wenn sich die Datei <code>test_data.csv</code> also innerhlab ihres Projektordners in einem Ordner Namens <code>data</code> befinden würde, könnten sie die Datei folgendermassen einlesen:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
 <span id="cb5-3"><a href="#cb5-3"></a>df_0 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/test_data.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -302,13 +300,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="import-über-url" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="import-über-url">
 <span class="header-section-number">4.1.3</span> Import über URL</h3>
 <p>Der Import über eine URL ist effizient, wenn Daten regelmäßig aktualisiert werden oder sehr groß sind. Beispiel:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="daten-prüfen" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="daten-prüfen">
 <span class="header-section-number">4.2</span> Daten prüfen</h2>
 <p>Nach dem Import ist es wichtig, die Daten zu prüfen, um ein Verständnis für die Struktur und mögliche Probleme zu entwickeln: - <code>glimpse(df)</code> zeigt die Struktur der Daten, wir sehen alle Spalten und die Klasse der Variablen (in diesem Fall alles <code>double</code>)</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 32
@@ -330,7 +328,7 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <li>
 <code>head(df)</code> zeigt die ersten Zeilen.</li>
 </ul>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -457,7 +455,7 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <li>
 <code>summary(df)</code> liefert eine Zusammenfassung der Daten.</li>
 </ul>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      mpg             cyl             disp             hp       
@@ -488,13 +486,13 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <p>Nach einer Analyse möchten wir Daten oft exporiteren. Dies erfolgt ähnlich wie das Importieren.</p>
 <section id="export-als-csv" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="export-als-csv">
 <span class="header-section-number">4.3.1</span> Export als CSV</h3>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">write_csv</span>(df, <span class="st">'pfad/zum/speichern/my_data.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="export-als-xlsx" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="export-als-xlsx">
 <span class="header-section-number">4.3.2</span> Export als XLSX</h3>
 <p>Nach Installation von <code>writexl</code>:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#install.packages("writexl")</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="fu">library</span>(writexl)</span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="fu">write_xlsx</span>(df, <span class="st">'pfad/zum/speichern/my_data.xlsx'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -502,7 +500,7 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 </section><section id="export-als-rdata" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="export-als-rdata">
 <span class="header-section-number">4.3.3</span> Export als RData</h3>
 <p>Für R-spezifische Datenformate:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">save</span>(df, <span class="at">file =</span> <span class="st">'pfad/zum/speichern/my_data.RData'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="aufgaben" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="aufgaben">
@@ -901,7 +899,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -933,29 +942,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -963,7 +950,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

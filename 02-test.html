@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>1&nbsp; Einführung in R und RStudio – Einführung in die Datenanalyse mit R</title>
+<title>Einführung in die Datenanalyse mit R - 1&nbsp; Einführung in R und RStudio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -107,13 +107,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-test.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einführung in R und RStudio</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -125,23 +125,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/psyteachr/ads-v3/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -341,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="rstudio" class="level3" data-number="1.4.3"><h3 data-number="1.4.3" class="anchored" data-anchor-id="rstudio">
 <span class="header-section-number">1.4.3</span> RStudio</h3>
-<p>Nun können wir RStudio <a href="https://posit.co/download/rstudio-desktop/">diesem Link</a> herunterladen und installieren. Achte wieder darauf, dass du die richtige Version auswählst.</p>
+<p>Nun können wir RStudio mit <a href="https://posit.co/download/rstudio-desktop/">diesem Link</a> herunterladen und installieren. Achte wieder darauf, dass du die richtige Version auswählst.</p>
 <p>Nachdem wir RStduio zum ersten mal öffnen, müssen wir kurz etwas in den Einstellungen ändern. Auf einem Mac gehts du dafür auf Tools -&gt; Global Options, in Windows geht das über das ‘Preferences’ Menü. Im obersten Tab (‘General’) musst du unter dem Header ‘Workspace’ das Häckchen bei der Option “Restore .RData into workspace at startup” entfernen und aus dem Dropdown Menü darunter die Option “Never” auswählen.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -354,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Das sorgt dafür, dass nichts in der Konsole gespeichert bleibt, wenn wir RStudio schliessen. Dies ist wichtig für die Reproduzierbarkeit unserer Analysen.</p>
 </section></section><section id="rstudio-projekte" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="rstudio-projekte">
 <span class="header-section-number">1.5</span> RStudio Projekte</h2>
-<p>Ein weiterer Vorteil von RStudio sind sogenannte “Projekte”. Projekte können direkt in RStudio erstellt. Ein Projekt ist nichts anderes als ein Ordner, der alle für ein Datenanalyse Projekt notwendigen Dateien enthält. Wie wir später sehen werden, vereinfacht das die Organisation (z.B. das Laden von Datensätzen) sehr. Deshalb erstellen wir als erstes, nachdem wir RStudio geöffnet haben, ein solches Projekt. Das unten abgebildete GIF zeigt dir, wie das geht. Du kannst das Projekt nennen, wie du möchtest. Speichere das Projekt in einem Ordner, den du einfach wieder findest (z.B. in dem Ordner, in dem du auch die Vorlesungsfolien speicherst).</p>
+<p>Ein weiterer Vorteil von RStudio sind sogenannte “Projekte”. Projekte können direkt in RStudio erstellt werden. Ein Projekt ist nichts anderes als ein Ordner, der alle für ein Datenanalyse Projekt notwendigen Dateien enthält. Wie wir später sehen werden, vereinfacht das die Organisation (z.B. das Laden von Datensätzen) sehr. Deshalb erstellen wir als erstes, nachdem wir RStudio geöffnet haben, ein solches Projekt. Das unten abgebildete GIF zeigt dir, wie das geht. Du kannst das Projekt nennen, wie du möchtest. Speichere das Projekt in einem Ordner, den du einfach wieder findest (z.B. in dem Ordner, in dem du auch die Vorlesungsfolien speicherst).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -498,11 +498,11 @@ Note
 <li>
 <pkg>ggplot2</pkg>, für Datenvisualisierung (<a href="08-data-viz.html" class="quarto-xref"><span>Chapter 8</span></a>)</li>
 <li>
-<pkg>readr</pkg>, für Datenimport (<span class="quarto-unresolved-ref">?sec-data</span>)</li>
+<pkg>readr</pkg>, für Datenimport (<a href="04-import-export.html" class="quarto-xref"><span>Chapter 4</span></a>)</li>
 <li>
-<pkg>tibble</pkg>, für Tabellen (<span class="quarto-unresolved-ref">?sec-data</span>)</li>
+<pkg>tibble</pkg>, für Tabellen (<a href="04-import-export.html" class="quarto-xref"><span>Chapter 4</span></a>)</li>
 <li>
-<pkg>tidyr</pkg>, für Datenbereinigung (<span class="quarto-unresolved-ref">?sec-tidy</span>)</li>
+<pkg>tidyr</pkg>, für Datenbereinigung (<a href="06-wrangling.html" class="quarto-xref"><span>Chapter 6</span></a>)</li>
 <li>
 <pkg>dplyr</pkg>, für Datenmanipulation (<a href="06-wrangling.html" class="quarto-xref"><span>Chapter 6</span></a>)</li>
 <li>
@@ -601,7 +601,6 @@ Funktionshilfe
 <pre><code>[1] "z" "v" "y" "w" "j"</code></pre>
 </div>
 </div>
-<p>Hier ist die Fortsetzung der Übersetzung ins Deutsche, weiterhin mit der “du”-Form:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -646,7 +645,7 @@ Warum sind meine Buchstaben anders als deine Buchstaben?
 <p>Eine sehr nützliche Funktion von R Studio ist die Tab-Autovervollständigung für Funktionen. Wenn du den Namen der Funktion schreibst und dann die Tab-Taste drückst, zeigt R Studio dir die Argumente, die die Funktion annimmt, zusammen mit einer kurzen Beschreibung. Wenn du Enter auf dem Argumentnamen drückst, wird der Name für dich ausgefüllt, genau wie die Autovervollständigung auf deinem Handy. Das ist unglaublich nützlich, wenn du gerade erst R lernst, und du solltest daran denken, diese Funktion häufig zu nutzen.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-autocomplete" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-autocomplete" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autocomplete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/intro/autocomplete.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -1211,7 +1210,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1243,29 +1253,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1273,7 +1261,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

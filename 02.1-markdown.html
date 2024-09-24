@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>2&nbsp; Berichte mit R Markdown erstellen – Einführung in die Datenanalyse mit R</title>
+<title>Einführung in die Datenanalyse mit R - 2&nbsp; Berichte mit R Markdown erstellen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -128,13 +128,13 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02.1-markdown.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Berichte mit R Markdown erstellen</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -146,23 +146,23 @@ div.csl-indent {
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/psyteachr/ads-v3/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -510,7 +510,7 @@ Benennungsübung
 <p>Wenn Sie ein neues R Markdown-Dokument zum ersten Mal öffnen, sehen Sie einen Haufen Begrüßungstext, der so aussieht:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-markdown-default" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-markdown-default" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-markdown-default-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/reports/markdown-default.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -531,7 +531,7 @@ Figure&nbsp;2.2: Neuer R Markdown-Text
 <p>Ihr Markdown-Dokument sollte jetzt etwa so aussehen:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-new-chunk" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-new-chunk" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-new-chunk-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/reports/new-chunk.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -590,7 +590,7 @@ Konsole vs.&nbsp;Skripte
 <p>Alternativ können Sie die grüne “Play”-Schaltfläche oben rechts im Codeblock drücken, und dies wird <strong>alle</strong> Codezeilen in diesem Block ausführen.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-run-all" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-run-all" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-run-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/reports/run-all.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -603,7 +603,7 @@ Figure&nbsp;2.4: Klicken Sie auf den grünen Pfeil, um allen Code im Block auszu
 <p>Noch besser ist es, einige der Tastenkürzel für R Studio zu lernen. Um eine einzelne Codezeile auszuführen, stellen Sie sicher, dass sich der Cursor in der Codezeile befindet, die Sie ausführen möchten (er kann sich irgendwo befinden), und drücken Sie <pc>Ctrl+Enter</pc> oder <mac>Cmd+Enter</mac>. Wenn Sie allen Code im Codeblock ausführen möchten, drücken Sie <pc>Ctrl+Shift+Enter</pc> oder <mac>Cmd+Shift+Enter</mac>. Lernen Sie diese Tastenkürzel; sie werden Ihr Leben einfacher machen!</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-run3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-run3" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-run3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/reports/run3.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -835,7 +835,7 @@ Note
 <p>Sie können den visuellen <a href="https://psyteachr.github.io/glossary/m#markdown" target="_blank" class="glossary" title="A way to specify formatting, such as headers, paragraphs, lists, bolding, and links.">markdown</a>-Editor verwenden, wenn Sie RStudio Version 1.4 oder höher haben. Dies wird ein Knopf oben in der Quellfenster sein, und die Menüoptionen sollten jedem vertraut sein, der mit Software wie Microsoft Word gearbeitet hat.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-visual-editor" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-visual-editor" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-visual-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/reports/visual-editor.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -1170,7 +1170,7 @@ Abbildungs- versus Ausgabedimensionen
 <p>Beachten Sie, dass <code>fig.width</code> und <code>fig.height</code> die ursprüngliche Größe und das Seitenverhältnis von Bildern steuern, die von R generiert werden, wie z. B. Diagramme. Dies beeinflusst die relative Größe von Text und anderen Elementen in Diagrammen. Es hat keinen Einfluss auf die Größe vorhandener Bilder. <code>out.width</code> steuert jedoch die <strong>Anzeigegröße</strong> sowohl vorhandener Bilder als auch von R generierter Abbildungen. Dies wird normalerweise als Prozentsatz der Seitenbreite eingestellt.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-full-100" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-full-100" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-full-100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02.1-markdown_files/figure-html/fig-full-100-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -1182,7 +1182,7 @@ Figure&nbsp;2.7: Ein Diagramm mit den Standardwerten von fig.width = 8, fig.heig
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-half-100" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-half-100" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-half-100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02.1-markdown_files/figure-html/fig-half-100-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -1194,7 +1194,7 @@ Figure&nbsp;2.8: Das gleiche Diagramm mit der Hälfte der Standardbreite und -h�
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-half-50" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-half-50" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-half-50-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02.1-markdown_files/figure-html/fig-half-50-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%">
 </div>
@@ -1299,7 +1299,7 @@ Versuchen
 <p>Die eingebauten BootsWatch-Themen sind: default, cerulean, cosmo, darkly, flatly, journal, lumen, paper, readable, sandstone, simplex, spacelab, united und yeti. Sie können <a href="https://bootswatch.com/4/">mehr Themen anzeigen und herunterladen</a>. Ändern Sie das Thema, um zu sehen, welches Ihnen am besten gefällt.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-bootswatch" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-bootswatch" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-bootswatch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/reports/bootswatch.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -1841,7 +1841,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1873,29 +1884,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1903,7 +1892,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
