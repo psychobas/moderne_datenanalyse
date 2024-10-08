@@ -404,7 +404,7 @@
     "href": "04-import-export.html#aufgaben",
     "title": "4  Daten Import und Export in R",
     "section": "\n4.4 Aufgaben",
-    "text": "4.4 Aufgaben\n\nBesuchen Sie die Webseite Gabor’s Data Analysis und finden Sie die OSF-Datenbank.\nLaden Sie die hotelbookingdata.csv von der OSF-Datenbank manuell herunter und importieren Sie sie in R.\nExportieren Sie die Daten als XLSX und RData.\n\nDurch das Erlernen dieser Techniken wird Ihr Arbeitsfluss in R effizienter und Ihre Analysen reproduzierbar, was die Grundlage für empirische Forschung bildet.",
+    "text": "4.4 Aufgaben\n\nLaden Sie die hotelbookingdata.csv von ADAM herunter und importieren Sie sie in R.\nExportieren Sie die Daten als XLSX und RData.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Daten Import und Export in R</span>"
     ]
