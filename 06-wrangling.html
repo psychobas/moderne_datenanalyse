@@ -226,12 +226,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a href="#der-pipe-operator" id="toc-der-pipe-operator" class="nav-link" data-scroll-target="#der-pipe-operator"><span class="header-section-number">6.2</span> Der <code>Pipe</code> Operator</a>
   <ul class="collapse">
 <li><a href="#spalten-ausw%C3%A4hlen-mit-select" id="toc-spalten-auswählen-mit-select" class="nav-link" data-scroll-target="#spalten-ausw%C3%A4hlen-mit-select"><span class="header-section-number">6.2.1</span> Spalten auswählen mit <code>select</code></a></li>
-  <li><a href="#todo" id="toc-todo" class="nav-link" data-scroll-target="#todo"><span class="header-section-number">6.2.2</span> Todo</a></li>
-  <li><a href="#filtern" id="toc-filtern" class="nav-link" data-scroll-target="#filtern"><span class="header-section-number">6.2.3</span> Filtern</a></li>
-  <li><a href="#sec-arrange" id="toc-sec-arrange" class="nav-link" data-scroll-target="#sec-arrange"><span class="header-section-number">6.2.4</span> Anordnen</a></li>
-  <li><a href="#mutieren" id="toc-mutieren" class="nav-link" data-scroll-target="#mutieren"><span class="header-section-number">6.2.5</span> Mutieren</a></li>
-  <li><a href="#sec-dplyr-summarise" id="toc-sec-dplyr-summarise" class="nav-link" data-scroll-target="#sec-dplyr-summarise"><span class="header-section-number">6.2.6</span> Zusammenfassen</a></li>
-  <li><a href="#sec-dplyr-groupby" id="toc-sec-dplyr-groupby" class="nav-link" data-scroll-target="#sec-dplyr-groupby"><span class="header-section-number">6.2.7</span> Gruppieren</a></li>
+  <li><a href="#filtern" id="toc-filtern" class="nav-link" data-scroll-target="#filtern"><span class="header-section-number">6.2.2</span> Filtern</a></li>
+  <li><a href="#sec-arrange" id="toc-sec-arrange" class="nav-link" data-scroll-target="#sec-arrange"><span class="header-section-number">6.2.3</span> Anordnen</a></li>
+  <li><a href="#mutieren" id="toc-mutieren" class="nav-link" data-scroll-target="#mutieren"><span class="header-section-number">6.2.4</span> Mutieren</a></li>
+  <li><a href="#sec-dplyr-summarise" id="toc-sec-dplyr-summarise" class="nav-link" data-scroll-target="#sec-dplyr-summarise"><span class="header-section-number">6.2.5</span> Zusammenfassen</a></li>
+  <li><a href="#sec-dplyr-groupby" id="toc-sec-dplyr-groupby" class="nav-link" data-scroll-target="#sec-dplyr-groupby"><span class="header-section-number">6.2.6</span> Gruppieren</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/psyteachr/ads-v3/edit/master/06-wrangling.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/ads-v3/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/ads-v3/blob/master/06-wrangling.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
@@ -917,10 +916,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>wähle Spalten, deren Name dem Muster <code>prefix</code> entspricht</td>
 </tr>
 </tbody>
-</table></section></section><section id="todo" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="todo">
-<span class="header-section-number">6.2.2</span> Todo</h3>
-</section><section id="filtern" class="level3" data-number="6.2.3"><h3 data-number="6.2.3" class="anchored" data-anchor-id="filtern">
-<span class="header-section-number">6.2.3</span> Filtern</h3>
+</table></section></section><section id="filtern" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="filtern">
+<span class="header-section-number">6.2.2</span> Filtern</h3>
 <p>Oft ist man auch nur an bestimmten Beobachtungen (Zeilen) interessiert. Diese können wir mit der <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> Funktion auswählen. Man kann dabei nach einem oder mehreren Kriterien filtern. Dabei kommen logische Operatoren, wie wir sie bereits besprochen haben, zum Einsatz. Zum Beispiel können wir nur die Beobachtungen auswählen, die aus der Region “North” kommen:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># wähle alle Zeilen aus, bei denen die Region Nord entspricht</span></span>
@@ -1223,8 +1220,8 @@ Warning
 <p><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> ist unglaublich leistungsfähig und kann Ihnen ermöglichen, sehr spezifische Teilmengen von Daten auszuwählen. Aber es ist auch ziemlich gefährlich, denn wenn Sie mehrere Kriterien und Operatoren kombinieren, ist es sehr einfach, versehentlich etwas leicht anders zu spezifizieren, als Sie beabsichtigt haben. <strong>Überprüfen Sie immer Ihre Ausgabe</strong>. Wenn Sie einen kleinen Datensatz haben, können Sie ihn visuell überprüfen, um zu sehen, ob er richtig aussieht. Bei einem größeren Datensatz möchten Sie vielleicht Zusammenfassungsstatistiken berechnen oder die Anzahl der Gruppen/Beobachtungen in jeder Variablen zählen, um zu überprüfen, ob Ihr Filter korrekt ist. Es gibt kein Expertenniveau im Codieren, das das Wissen und die Überprüfung Ihrer Daten ersetzen kann.</p>
 </div>
 </div>
-</section><section id="sec-arrange" class="level3" data-number="6.2.4"><h3 data-number="6.2.4" class="anchored" data-anchor-id="sec-arrange">
-<span class="header-section-number">6.2.4</span> Anordnen</h3>
+</section><section id="sec-arrange" class="level3" data-number="6.2.3"><h3 data-number="6.2.3" class="anchored" data-anchor-id="sec-arrange">
+<span class="header-section-number">6.2.3</span> Anordnen</h3>
 <p>Nachdem wir die gewünschten Spalten (<code>select</code>) und Zeilen (<code>filter</code>) ausgewählt haben, wollen wir die Daten eventuell noch sortieren. Dies kann zum Beispiel bei Paneldaten sinnvoll sein. Sortieren kann auch für die Darstellung in Tabellen hilfreich sein. Wir können Daten nach den Werten in bestimmten Spalten mit <code>arrange</code> sortieren:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Anordnen der Tabelle </span></span>
@@ -1341,8 +1338,8 @@ Warning
 </div>
 </div>
 </div>
-</section><section id="mutieren" class="level3" data-number="6.2.5"><h3 data-number="6.2.5" class="anchored" data-anchor-id="mutieren">
-<span class="header-section-number">6.2.5</span> Mutieren</h3>
+</section><section id="mutieren" class="level3" data-number="6.2.4"><h3 data-number="6.2.4" class="anchored" data-anchor-id="mutieren">
+<span class="header-section-number">6.2.4</span> Mutieren</h3>
 <p>Die Funktion <code>mutate()</code> ermöglicht es, neue Spalten hinzuzufügen oder bestehende zu ändern. Dies geschieht mit folgender Syntax: <code>mutate(neue_Spalte = Berechnung)</code>. Es können auch mehrere neue Spalten in einem einzigen <code>mutate</code> Call generiert werden.Sobald eine neue Spalte erstellt wurde, kann diese in weiteren berechnungen innerhalb des selben <code>mutate</code> Calls verwendet werden. Zum Beispiel verwendet die Erstellung von <code>profit</code> unten die Spalte <code>expenses</code>, die darüber erstellt wird.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>budget2 <span class="ot">&lt;-</span> budget <span class="sc">%&gt;%</span></span>
@@ -1656,8 +1653,8 @@ Warning
 </div>
 </div>
 </div>
-</section><section id="sec-dplyr-summarise" class="level3" data-number="6.2.6"><h3 data-number="6.2.6" class="anchored" data-anchor-id="sec-dplyr-summarise">
-<span class="header-section-number">6.2.6</span> Zusammenfassen</h3>
+</section><section id="sec-dplyr-summarise" class="level3" data-number="6.2.5"><h3 data-number="6.2.5" class="anchored" data-anchor-id="sec-dplyr-summarise">
+<span class="header-section-number">6.2.5</span> Zusammenfassen</h3>
 <p>Die Funktion <code>mutate</code> generiert für jede bestehende Beobachtung einen neuen Wert. Oft wollen wir aber Berechnungen anstellen, die bestehende Werte zusammenfast. Dafür verwenden wir die Funktion <code>summarise</code>. Bevor wir Beispiele von <code>summarise</code> anschauen, bringen wir die Daten in ein <code>tidy</code> Format:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>budget4 <span class="ot">&lt;-</span> budget <span class="sc">%&gt;%</span></span>
@@ -1758,8 +1755,8 @@ Warning
 </div>
 <p>Wir sehen, dass <code>summarise</code> wie <code>mutate</code> funktioniert, jedoch mehrere Beobachtungen zu einer neuen, aggregierten, Beobachtung zusammenfasst.</p>
 <p>Oft interessieren wir uns aber für solche Kennzahlen getrennt nach Gruppen. Zum Beispiel wäre es gut zu wissen, inwiefern sich die durchschnittlichen Verkäufe und Ausgaben nach Region unterscheiden. Dies können wir mit der <code>group_by</code> Funktion tun.</p>
-</section><section id="sec-dplyr-groupby" class="level3" data-number="6.2.7"><h3 data-number="6.2.7" class="anchored" data-anchor-id="sec-dplyr-groupby">
-<span class="header-section-number">6.2.7</span> Gruppieren</h3>
+</section><section id="sec-dplyr-groupby" class="level3" data-number="6.2.6"><h3 data-number="6.2.6" class="anchored" data-anchor-id="sec-dplyr-groupby">
+<span class="header-section-number">6.2.6</span> Gruppieren</h3>
 <p>Die Funktion <code>group_by()</code> nimmt bestehende Daten und wandelt sie in eine gruppierte Tabelle um, in der alle Berechnungen, die anschließend darauf ausgeführt werden, “nach Gruppe” durchgeführt werden. Schauen wir uns als erste an was passiert, wenn wir die <code>group_by</code> Funktion anwenden:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>budget4 <span class="sc">%&gt;%</span></span>
